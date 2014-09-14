@@ -40,9 +40,9 @@
 //! @name       Establishing A Connection To The Device
 //◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦//
 
-//! A Boolean value that reports whether a connection has been established to
-//! the device.
-@property (nonatomic, readonly, getter=isOpen) BOOL open;
+//! Returns \c YES if a connection has been established to the device; \c NO
+//! otherwise.
+- (BOOL)isOpen;
 
 //! Attempts to establish a connection to the device.
 //!
@@ -61,15 +61,17 @@
 //! @name       Device Properties
 //◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦//
 
-//! The serial number printed on the label on the back of the PlasmaTrim, which
-//! can be used to absolutely identify a unit.
-//!
-//! This peroperty is \e nil if a connection to the device has not been
-//! established.
-@property (nonatomic, readonly) NSString *serialNumber;
+@property (nonatomic, readonly) NSNumber *vendorID;
+@property (nonatomic, readonly) NSNumber *productID;
+@property (nonatomic, readonly) NSString *vendorName;
+@property (nonatomic, readonly) NSString *productName;
 
 //! The number of lamps in the receiver.  This is currently always eight.
 @property (nonatomic, readonly) NSUInteger lampCount;
+
+//! The serial number printed on the label on the back of the PlasmaTrim, which
+//! can be used to absolutely identify a unit.
+- (void)recallSerialNumberWithCompletion:(void (^)(NSString *serial, NSError *error))completion;
 
 - (void)storeName:(NSString *)name completion:(void (^)(NSError *error))completion;
 - (void)recallNameWithCompletion:(void (^)(NSString *name, NSError *error))completion;
@@ -77,7 +79,7 @@
 - (void)storeBrightness:(uint8_t)brightness completion:(void (^)(NSError *error))completion;
 - (void)recallBrightnessWithCompletion:(void (^)(uint8_t brightness, NSError *error))completion;
 
-- (void)setDeviceState:(PTKDeviceState*)deviceState cancelPending:(BOOL)cancelPending completion:(void (^)(NSError *error))completion;
+- (void)setDeviceState:(PTKDeviceState*)deviceState completion:(void (^)(NSError *error))completion;
 - (void)getDeviceStateWithCompletion:(void (^)(PTKDeviceState *deviceState, NSError *error))completion;
 
 //◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦//

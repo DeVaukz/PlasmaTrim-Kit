@@ -18,6 +18,9 @@
 		D00AE19E19C5108E00A8F590 /* PTKDeviceState.h in Headers */ = {isa = PBXBuildFile; fileRef = D00AE19C19C5108E00A8F590 /* PTKDeviceState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D00AE19F19C5108E00A8F590 /* PTKDeviceState.m in Sources */ = {isa = PBXBuildFile; fileRef = D00AE19D19C5108E00A8F590 /* PTKDeviceState.m */; };
 		D00AE1A119C536FB00A8F590 /* PTKDeviceStateSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D00AE1A019C536FB00A8F590 /* PTKDeviceStateSpec.m */; };
+		D00AE1AC19C550EE00A8F590 /* NSError+PKT.h in Headers */ = {isa = PBXBuildFile; fileRef = D00AE1AA19C550EE00A8F590 /* NSError+PKT.h */; };
+		D00AE1AD19C550EE00A8F590 /* NSError+PKT.m in Sources */ = {isa = PBXBuildFile; fileRef = D00AE1AB19C550EE00A8F590 /* NSError+PKT.m */; };
+		D00AE1B219C55FB000A8F590 /* PTKDeviceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D00AE1AF19C55FA800A8F590 /* PTKDeviceSpec.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,6 +140,9 @@
 		D00AE19D19C5108E00A8F590 /* PTKDeviceState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTKDeviceState.m; sourceTree = "<group>"; };
 		D00AE1A019C536FB00A8F590 /* PTKDeviceStateSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTKDeviceStateSpec.m; sourceTree = "<group>"; };
 		D00AE1A619C5386A00A8F590 /* PlasmaTrimKit-Module.map */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = "PlasmaTrimKit-Module.map"; sourceTree = "<group>"; };
+		D00AE1AA19C550EE00A8F590 /* NSError+PKT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+PKT.h"; sourceTree = "<group>"; };
+		D00AE1AB19C550EE00A8F590 /* NSError+PKT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+PKT.m"; sourceTree = "<group>"; };
+		D00AE1AF19C55FA800A8F590 /* PTKDeviceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTKDeviceSpec.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +198,8 @@
 				D00AE19519C4FA0800A8F590 /* PTKDevice.m */,
 				D00AE19C19C5108E00A8F590 /* PTKDeviceState.h */,
 				D00AE19D19C5108E00A8F590 /* PTKDeviceState.m */,
+				D00AE1AA19C550EE00A8F590 /* NSError+PKT.h */,
+				D00AE1AB19C550EE00A8F590 /* NSError+PKT.m */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -208,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				D00AE1A019C536FB00A8F590 /* PTKDeviceStateSpec.m */,
+				D00AE1AF19C55FA800A8F590 /* PTKDeviceSpec.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -319,6 +328,7 @@
 				D00AE12719C4D1BC00A8F590 /* PlasmaTrimKit.h in Headers */,
 				D00AE19E19C5108E00A8F590 /* PTKDeviceState.h in Headers */,
 				D00AE19A19C4FC6100A8F590 /* PTKDeviceManager.h in Headers */,
+				D00AE1AC19C550EE00A8F590 /* NSError+PKT.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,6 +507,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D00AE19F19C5108E00A8F590 /* PTKDeviceState.m in Sources */,
+				D00AE1AD19C550EE00A8F590 /* NSError+PKT.m in Sources */,
 				D00AE19719C4FA0800A8F590 /* PTKDevice.m in Sources */,
 				D00AE19B19C4FC6100A8F590 /* PTKDeviceManager.m in Sources */,
 			);
@@ -506,6 +517,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D00AE1B219C55FB000A8F590 /* PTKDeviceSpec.m in Sources */,
 				D00AE1A119C536FB00A8F590 /* PTKDeviceStateSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -593,6 +605,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D00AE16519C4F0D600A8F590 /* Mac-Application.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PlasmaTrimKit.framework/Versions/A/PlasmaTrimKit";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
@@ -606,6 +619,7 @@
 				INFOPLIST_FILE = "Resources/PlasmaTrimKit-Tests-Info.plist";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
 			name = Debug;
 		};
@@ -613,6 +627,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D00AE16519C4F0D600A8F590 /* Mac-Application.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PlasmaTrimKit.framework/Versions/A/PlasmaTrimKit";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
@@ -626,6 +641,7 @@
 				INFOPLIST_FILE = "Resources/PlasmaTrimKit-Tests-Info.plist";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
 			name = Release;
 		};
