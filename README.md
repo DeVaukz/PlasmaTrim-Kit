@@ -1,4 +1,7 @@
-PlasmaTrim-Kit
-==============
+PlasmaTrimKit
+=============
 
-The Objective-C SDK for the USB PlasmaTrim RGB LED light strip.
+## License
+
+PlasmaTrimKit is released under the MIT license. See
+[LICENSE.md](https://github.com/DeVaukz/PlasmaTrim-Kit/blob/master/LICENSE).

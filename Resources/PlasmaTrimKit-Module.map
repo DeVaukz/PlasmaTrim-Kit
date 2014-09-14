@@ -1,0 +1,8 @@
+framework module PlasmaTrimKit {
+    umbrella header "PlasmaTrimKit.h"
+    
+    export *
+    module * {
+        export *
+    }
+}

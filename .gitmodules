@@ -1,0 +1,10 @@
+[submodule "External/expecta"]
+	path = External/expecta
+	url = https://github.com/specta/expecta.git
+[submodule "External/specta"]
+	path = External/specta
+	url = https://github.com/specta/specta.git
+	branch = 0.3-wip
+[submodule "External/xcconfigs"]
+	path = External/xcconfigs
+	url = https://github.com/DeVaukz/xcconfigs.git

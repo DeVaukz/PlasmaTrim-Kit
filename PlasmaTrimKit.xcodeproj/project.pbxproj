@@ -1,0 +1,663 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D00AE12719C4D1BC00A8F590 /* PlasmaTrimKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D00AE12619C4D1BC00A8F590 /* PlasmaTrimKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D00AE19119C4F63D00A8F590 /* PlasmaTrimKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D00AE12119C4D1BC00A8F590 /* PlasmaTrimKit.framework */; };
+		D00AE19219C4F64400A8F590 /* Specta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D00AE17219C4F5EE00A8F590 /* Specta.framework */; };
+		D00AE19319C4F64800A8F590 /* libExpecta.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00AE18219C4F60400A8F590 /* libExpecta.a */; };
+		D00AE19619C4FA0800A8F590 /* PTKDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = D00AE19419C4FA0800A8F590 /* PTKDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D00AE19719C4FA0800A8F590 /* PTKDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = D00AE19519C4FA0800A8F590 /* PTKDevice.m */; };
+		D00AE19A19C4FC6100A8F590 /* PTKDeviceManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D00AE19819C4FC6100A8F590 /* PTKDeviceManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D00AE19B19C4FC6100A8F590 /* PTKDeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D00AE19919C4FC6100A8F590 /* PTKDeviceManager.m */; };
+		D00AE19E19C5108E00A8F590 /* PTKDeviceState.h in Headers */ = {isa = PBXBuildFile; fileRef = D00AE19C19C5108E00A8F590 /* PTKDeviceState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D00AE19F19C5108E00A8F590 /* PTKDeviceState.m in Sources */ = {isa = PBXBuildFile; fileRef = D00AE19D19C5108E00A8F590 /* PTKDeviceState.m */; };
+		D00AE1A119C536FB00A8F590 /* PTKDeviceStateSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D00AE1A019C536FB00A8F590 /* PTKDeviceStateSpec.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D00AE17119C4F5EE00A8F590 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D00AE16A19C4F5EE00A8F590 /* Specta.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E9536CD81968D30B003D1FBA;
+			remoteInfo = Specta;
+		};
+		D00AE17319C4F5EE00A8F590 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D00AE16A19C4F5EE00A8F590 /* Specta.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E9536CE31968D30B003D1FBA;
+			remoteInfo = SpectaTests;
+		};
+		D00AE17519C4F5EE00A8F590 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D00AE16A19C4F5EE00A8F590 /* Specta.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E9536D011968D3EE003D1FBA;
+			remoteInfo = "Specta-iOS";
+		};
+		D00AE17719C4F5EE00A8F590 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D00AE16A19C4F5EE00A8F590 /* Specta.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E9536D0B1968D3EE003D1FBA;
+			remoteInfo = "Specta-iOSTests";
+		};
+		D00AE18119C4F60400A8F590 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D00AE17919C4F60400A8F590 /* Expecta.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E9ACDF0C13B2DD520010F4D7;
+			remoteInfo = Expecta;
+		};
+		D00AE18319C4F60400A8F590 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D00AE17919C4F60400A8F590 /* Expecta.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E93067CE13B2E6D100EA26FF;
+			remoteInfo = "Expecta-iOS";
+		};
+		D00AE18519C4F60400A8F590 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D00AE17919C4F60400A8F590 /* Expecta.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E9ACDF1D13B2DD520010F4D7;
+			remoteInfo = ExpectaTests;
+		};
+		D00AE18719C4F60400A8F590 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D00AE17919C4F60400A8F590 /* Expecta.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E93067DA13B2E6D100EA26FF;
+			remoteInfo = "Expecta-iOSTests";
+		};
+		D00AE18919C4F60400A8F590 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D00AE17919C4F60400A8F590 /* Expecta.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9C4416F917FF3F4A00978F09;
+			remoteInfo = "ExpectaTests-XCTest";
+		};
+		D00AE18B19C4F62400A8F590 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D00AE16A19C4F5EE00A8F590 /* Specta.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = E9536CD71968D30B003D1FBA;
+			remoteInfo = Specta;
+		};
+		D00AE18D19C4F62A00A8F590 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D00AE17919C4F60400A8F590 /* Expecta.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = E9ACDF0B13B2DD520010F4D7;
+			remoteInfo = Expecta;
+		};
+		D00AE18F19C4F62D00A8F590 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D00AE11819C4D1BC00A8F590 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D00AE12019C4D1BC00A8F590;
+			remoteInfo = PlasmaTrimKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D00AE12119C4D1BC00A8F590 /* PlasmaTrimKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PlasmaTrimKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D00AE12619C4D1BC00A8F590 /* PlasmaTrimKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlasmaTrimKit.h; sourceTree = "<group>"; };
+		D00AE12C19C4D1BC00A8F590 /* PlasmaTrimKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlasmaTrimKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D00AE14E19C4DC8100A8F590 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D00AE15119C4DD4B00A8F590 /* PlasmaTrimKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "PlasmaTrimKit-Info.plist"; sourceTree = "<group>"; };
+		D00AE15319C4DD6600A8F590 /* PlasmaTrimKit-Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "PlasmaTrimKit-Tests-Info.plist"; sourceTree = "<group>"; };
+		D00AE15A19C4EF6000A8F590 /* Common.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
+		D00AE15C19C4EF8700A8F590 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		D00AE15D19C4EF8700A8F590 /* Profile.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Profile.xcconfig; sourceTree = "<group>"; };
+		D00AE15E19C4EF8700A8F590 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		D00AE15F19C4EF8700A8F590 /* Test.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Test.xcconfig; sourceTree = "<group>"; };
+		D00AE16119C4F0A900A8F590 /* Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Application.xcconfig; sourceTree = "<group>"; };
+		D00AE16219C4F0A900A8F590 /* Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Framework.xcconfig; sourceTree = "<group>"; };
+		D00AE16319C4F0A900A8F590 /* StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = StaticLibrary.xcconfig; sourceTree = "<group>"; };
+		D00AE16519C4F0D600A8F590 /* Mac-Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-Application.xcconfig"; sourceTree = "<group>"; };
+		D00AE16619C4F0D600A8F590 /* Mac-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-Base.xcconfig"; sourceTree = "<group>"; };
+		D00AE16719C4F0D600A8F590 /* Mac-DynamicLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-DynamicLibrary.xcconfig"; sourceTree = "<group>"; };
+		D00AE16819C4F0D600A8F590 /* Mac-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-Framework.xcconfig"; sourceTree = "<group>"; };
+		D00AE16919C4F0D600A8F590 /* Mac-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
+		D00AE16A19C4F5EE00A8F590 /* Specta.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Specta.xcodeproj; path = specta/Specta/Specta.xcodeproj; sourceTree = "<group>"; };
+		D00AE17919C4F60400A8F590 /* Expecta.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Expecta.xcodeproj; path = expecta/Expecta.xcodeproj; sourceTree = "<group>"; };
+		D00AE19419C4FA0800A8F590 /* PTKDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTKDevice.h; sourceTree = "<group>"; };
+		D00AE19519C4FA0800A8F590 /* PTKDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTKDevice.m; sourceTree = "<group>"; };
+		D00AE19819C4FC6100A8F590 /* PTKDeviceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTKDeviceManager.h; sourceTree = "<group>"; };
+		D00AE19919C4FC6100A8F590 /* PTKDeviceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTKDeviceManager.m; sourceTree = "<group>"; };
+		D00AE19C19C5108E00A8F590 /* PTKDeviceState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTKDeviceState.h; sourceTree = "<group>"; };
+		D00AE19D19C5108E00A8F590 /* PTKDeviceState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTKDeviceState.m; sourceTree = "<group>"; };
+		D00AE1A019C536FB00A8F590 /* PTKDeviceStateSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTKDeviceStateSpec.m; sourceTree = "<group>"; };
+		D00AE1A619C5386A00A8F590 /* PlasmaTrimKit-Module.map */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = "PlasmaTrimKit-Module.map"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D00AE11D19C4D1BC00A8F590 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D00AE12919C4D1BC00A8F590 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D00AE19319C4F64800A8F590 /* libExpecta.a in Frameworks */,
+				D00AE19219C4F64400A8F590 /* Specta.framework in Frameworks */,
+				D00AE19119C4F63D00A8F590 /* PlasmaTrimKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D00AE11719C4D1BC00A8F590 = {
+			isa = PBXGroup;
+			children = (
+				D00AE14E19C4DC8100A8F590 /* README.md */,
+				D00AE14F19C4DCB900A8F590 /* Source */,
+				D00AE15519C4DD6D00A8F590 /* Tests */,
+				D00AE15019C4DD2D00A8F590 /* Resources */,
+				D00AE15819C4EF1800A8F590 /* Configuration */,
+				D00AE15619C4E93700A8F590 /* External */,
+				D00AE12219C4D1BC00A8F590 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D00AE12219C4D1BC00A8F590 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D00AE12119C4D1BC00A8F590 /* PlasmaTrimKit.framework */,
+				D00AE12C19C4D1BC00A8F590 /* PlasmaTrimKitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D00AE14F19C4DCB900A8F590 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				D00AE12619C4D1BC00A8F590 /* PlasmaTrimKit.h */,
+				D00AE19819C4FC6100A8F590 /* PTKDeviceManager.h */,
+				D00AE19919C4FC6100A8F590 /* PTKDeviceManager.m */,
+				D00AE19419C4FA0800A8F590 /* PTKDevice.h */,
+				D00AE19519C4FA0800A8F590 /* PTKDevice.m */,
+				D00AE19C19C5108E00A8F590 /* PTKDeviceState.h */,
+				D00AE19D19C5108E00A8F590 /* PTKDeviceState.m */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		D00AE15019C4DD2D00A8F590 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D00AE15719C4EBA900A8F590 /* Supporting Files */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		D00AE15519C4DD6D00A8F590 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				D00AE1A019C536FB00A8F590 /* PTKDeviceStateSpec.m */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		D00AE15619C4E93700A8F590 /* External */ = {
+			isa = PBXGroup;
+			children = (
+				D00AE17919C4F60400A8F590 /* Expecta.xcodeproj */,
+				D00AE16A19C4F5EE00A8F590 /* Specta.xcodeproj */,
+			);
+			path = External;
+			sourceTree = "<group>";
+		};
+		D00AE15719C4EBA900A8F590 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D00AE15119C4DD4B00A8F590 /* PlasmaTrimKit-Info.plist */,
+				D00AE1A619C5386A00A8F590 /* PlasmaTrimKit-Module.map */,
+				D00AE15319C4DD6600A8F590 /* PlasmaTrimKit-Tests-Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D00AE15819C4EF1800A8F590 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				D00AE15919C4EF4800A8F590 /* Base */,
+				D00AE16419C4F0C500A8F590 /* OSX */,
+			);
+			name = Configuration;
+			path = External/xcconfigs;
+			sourceTree = "<group>";
+		};
+		D00AE15919C4EF4800A8F590 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				D00AE15A19C4EF6000A8F590 /* Common.xcconfig */,
+				D00AE15B19C4EF7600A8F590 /* Configurations */,
+				D00AE16019C4F09700A8F590 /* Targets */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		D00AE15B19C4EF7600A8F590 /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				D00AE15C19C4EF8700A8F590 /* Debug.xcconfig */,
+				D00AE15D19C4EF8700A8F590 /* Profile.xcconfig */,
+				D00AE15E19C4EF8700A8F590 /* Release.xcconfig */,
+				D00AE15F19C4EF8700A8F590 /* Test.xcconfig */,
+			);
+			path = Configurations;
+			sourceTree = "<group>";
+		};
+		D00AE16019C4F09700A8F590 /* Targets */ = {
+			isa = PBXGroup;
+			children = (
+				D00AE16119C4F0A900A8F590 /* Application.xcconfig */,
+				D00AE16219C4F0A900A8F590 /* Framework.xcconfig */,
+				D00AE16319C4F0A900A8F590 /* StaticLibrary.xcconfig */,
+			);
+			path = Targets;
+			sourceTree = "<group>";
+		};
+		D00AE16419C4F0C500A8F590 /* OSX */ = {
+			isa = PBXGroup;
+			children = (
+				D00AE16519C4F0D600A8F590 /* Mac-Application.xcconfig */,
+				D00AE16619C4F0D600A8F590 /* Mac-Base.xcconfig */,
+				D00AE16719C4F0D600A8F590 /* Mac-DynamicLibrary.xcconfig */,
+				D00AE16819C4F0D600A8F590 /* Mac-Framework.xcconfig */,
+				D00AE16919C4F0D600A8F590 /* Mac-StaticLibrary.xcconfig */,
+			);
+			name = OSX;
+			path = "Mac OS X";
+			sourceTree = "<group>";
+		};
+		D00AE16B19C4F5EE00A8F590 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D00AE17219C4F5EE00A8F590 /* Specta.framework */,
+				D00AE17419C4F5EE00A8F590 /* SpectaTests.xctest */,
+				D00AE17619C4F5EE00A8F590 /* Specta.framework */,
+				D00AE17819C4F5EE00A8F590 /* Specta-iOSTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D00AE17A19C4F60400A8F590 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D00AE18219C4F60400A8F590 /* libExpecta.a */,
+				D00AE18419C4F60400A8F590 /* libExpecta-iOS.a */,
+				D00AE18619C4F60400A8F590 /* ExpectaTests.octest */,
+				D00AE18819C4F60400A8F590 /* Expecta-iOSTests.octest */,
+				D00AE18A19C4F60400A8F590 /* ExpectaTests-XCTest.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D00AE11E19C4D1BC00A8F590 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D00AE19619C4FA0800A8F590 /* PTKDevice.h in Headers */,
+				D00AE12719C4D1BC00A8F590 /* PlasmaTrimKit.h in Headers */,
+				D00AE19E19C5108E00A8F590 /* PTKDeviceState.h in Headers */,
+				D00AE19A19C4FC6100A8F590 /* PTKDeviceManager.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		D00AE12019C4D1BC00A8F590 /* PlasmaTrimKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D00AE13419C4D1BC00A8F590 /* Build configuration list for PBXNativeTarget "PlasmaTrimKit" */;
+			buildPhases = (
+				D00AE11C19C4D1BC00A8F590 /* Sources */,
+				D00AE11D19C4D1BC00A8F590 /* Frameworks */,
+				D00AE11E19C4D1BC00A8F590 /* Headers */,
+				D00AE11F19C4D1BC00A8F590 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PlasmaTrimKit;
+			productName = PlasmaTrimKit;
+			productReference = D00AE12119C4D1BC00A8F590 /* PlasmaTrimKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		D00AE12B19C4D1BC00A8F590 /* PlasmaTrimKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D00AE13719C4D1BC00A8F590 /* Build configuration list for PBXNativeTarget "PlasmaTrimKitTests" */;
+			buildPhases = (
+				D00AE12819C4D1BC00A8F590 /* Sources */,
+				D00AE12919C4D1BC00A8F590 /* Frameworks */,
+				D00AE12A19C4D1BC00A8F590 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D00AE19019C4F62D00A8F590 /* PBXTargetDependency */,
+				D00AE18E19C4F62A00A8F590 /* PBXTargetDependency */,
+				D00AE18C19C4F62400A8F590 /* PBXTargetDependency */,
+			);
+			name = PlasmaTrimKitTests;
+			productName = PlasmaTrimKitTests;
+			productReference = D00AE12C19C4D1BC00A8F590 /* PlasmaTrimKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D00AE11819C4D1BC00A8F590 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = DeVaukz;
+				TargetAttributes = {
+					D00AE12019C4D1BC00A8F590 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					D00AE12B19C4D1BC00A8F590 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+				};
+			};
+			buildConfigurationList = D00AE11B19C4D1BC00A8F590 /* Build configuration list for PBXProject "PlasmaTrimKit" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = D00AE11719C4D1BC00A8F590;
+			productRefGroup = D00AE12219C4D1BC00A8F590 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D00AE17A19C4F60400A8F590 /* Products */;
+					ProjectRef = D00AE17919C4F60400A8F590 /* Expecta.xcodeproj */;
+				},
+				{
+					ProductGroup = D00AE16B19C4F5EE00A8F590 /* Products */;
+					ProjectRef = D00AE16A19C4F5EE00A8F590 /* Specta.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				D00AE12019C4D1BC00A8F590 /* PlasmaTrimKit */,
+				D00AE12B19C4D1BC00A8F590 /* PlasmaTrimKitTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		D00AE17219C4F5EE00A8F590 /* Specta.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Specta.framework;
+			remoteRef = D00AE17119C4F5EE00A8F590 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D00AE17419C4F5EE00A8F590 /* SpectaTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SpectaTests.xctest;
+			remoteRef = D00AE17319C4F5EE00A8F590 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D00AE17619C4F5EE00A8F590 /* Specta.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Specta.framework;
+			remoteRef = D00AE17519C4F5EE00A8F590 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D00AE17819C4F5EE00A8F590 /* Specta-iOSTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Specta-iOSTests.xctest";
+			remoteRef = D00AE17719C4F5EE00A8F590 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D00AE18219C4F60400A8F590 /* libExpecta.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libExpecta.a;
+			remoteRef = D00AE18119C4F60400A8F590 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D00AE18419C4F60400A8F590 /* libExpecta-iOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libExpecta-iOS.a";
+			remoteRef = D00AE18319C4F60400A8F590 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D00AE18619C4F60400A8F590 /* ExpectaTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ExpectaTests.octest;
+			remoteRef = D00AE18519C4F60400A8F590 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D00AE18819C4F60400A8F590 /* Expecta-iOSTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Expecta-iOSTests.octest";
+			remoteRef = D00AE18719C4F60400A8F590 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D00AE18A19C4F60400A8F590 /* ExpectaTests-XCTest.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "ExpectaTests-XCTest.xctest";
+			remoteRef = D00AE18919C4F60400A8F590 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D00AE11F19C4D1BC00A8F590 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D00AE12A19C4D1BC00A8F590 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D00AE11C19C4D1BC00A8F590 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D00AE19F19C5108E00A8F590 /* PTKDeviceState.m in Sources */,
+				D00AE19719C4FA0800A8F590 /* PTKDevice.m in Sources */,
+				D00AE19B19C4FC6100A8F590 /* PTKDeviceManager.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D00AE12819C4D1BC00A8F590 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D00AE1A119C536FB00A8F590 /* PTKDeviceStateSpec.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D00AE18C19C4F62400A8F590 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Specta;
+			targetProxy = D00AE18B19C4F62400A8F590 /* PBXContainerItemProxy */;
+		};
+		D00AE18E19C4F62A00A8F590 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Expecta;
+			targetProxy = D00AE18D19C4F62A00A8F590 /* PBXContainerItemProxy */;
+		};
+		D00AE19019C4F62D00A8F590 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D00AE12019C4D1BC00A8F590 /* PlasmaTrimKit */;
+			targetProxy = D00AE18F19C4F62D00A8F590 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		D00AE13219C4D1BC00A8F590 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D00AE15C19C4EF8700A8F590 /* Debug.xcconfig */;
+			buildSettings = {
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		D00AE13319C4D1BC00A8F590 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D00AE15E19C4EF8700A8F590 /* Release.xcconfig */;
+			buildSettings = {
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "NDEBUG=1";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		D00AE13519C4D1BC00A8F590 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D00AE16819C4F0D600A8F590 /* Mac-Framework.xcconfig */;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "Resources/PlasmaTrimKit-Info.plist";
+				MODULEMAP_FILE = "Resources/PlasmaTrimKit-module.map";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D00AE13619C4D1BC00A8F590 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D00AE16819C4F0D600A8F590 /* Mac-Framework.xcconfig */;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "Resources/PlasmaTrimKit-Info.plist";
+				MODULEMAP_FILE = "Resources/PlasmaTrimKit-module.map";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		D00AE13819C4D1BC00A8F590 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D00AE16519C4F0D600A8F590 /* Mac-Application.xcconfig */;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/External/expecta/src\"/**",
+					"\"$(SRCROOT)/External/specta/Specta/Specta\"",
+				);
+				INFOPLIST_FILE = "Resources/PlasmaTrimKit-Tests-Info.plist";
+				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D00AE13919C4D1BC00A8F590 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D00AE16519C4F0D600A8F590 /* Mac-Application.xcconfig */;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/External/expecta/src\"/**",
+					"\"$(SRCROOT)/External/specta/Specta/Specta\"",
+				);
+				INFOPLIST_FILE = "Resources/PlasmaTrimKit-Tests-Info.plist";
+				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D00AE11B19C4D1BC00A8F590 /* Build configuration list for PBXProject "PlasmaTrimKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D00AE13219C4D1BC00A8F590 /* Debug */,
+				D00AE13319C4D1BC00A8F590 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D00AE13419C4D1BC00A8F590 /* Build configuration list for PBXNativeTarget "PlasmaTrimKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D00AE13519C4D1BC00A8F590 /* Debug */,
+				D00AE13619C4D1BC00A8F590 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		D00AE13719C4D1BC00A8F590 /* Build configuration list for PBXNativeTarget "PlasmaTrimKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D00AE13819C4D1BC00A8F590 /* Debug */,
+				D00AE13919C4D1BC00A8F590 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D00AE11819C4D1BC00A8F590 /* Project object */;
+}
