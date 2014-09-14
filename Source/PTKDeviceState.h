@@ -38,7 +38,8 @@
 
 //! The shared brightness value.
 //!
-//! This value globally scales the output without reducing the dynamic range.
+//! This value must be between [0, 100] and globally scales the output without
+//! reducing the dynamic range.
 @property (nonatomic, readwrite) uint8_t brightness;
 
 //! Returns the RGB component values in the respective arguments for the lamp

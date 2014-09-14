@@ -55,9 +55,17 @@ struct ptk_lamp_color {
 }
 
 //|++++++++++++++++++++++++++++++++++++|//
+- (void)setBrightness:(uint8_t)brightness
+{
+    if (brightness > 100)
+        brightness = 100;
+    _brightness = brightness;
+}
+
+//|++++++++++++++++++++++++++++++++++++|//
 - (void)getRed:(uint8_t*)red green:(uint8_t*)green blue:(uint8_t*)blue forLampsInRange:(NSRange)range
 {
-    if (range.location + range.length >= 8)
+    if (range.location + range.length > 8)
         @throw [NSException exceptionWithName:NSRangeException reason:@"Range must be between [0, 8)" userInfo:nil];
     
     for (NSUInteger i = range.location; i < range.location + range.length; i++) {
@@ -70,7 +78,7 @@ struct ptk_lamp_color {
 //|++++++++++++++++++++++++++++++++++++|//
 - (void)setRed:(uint8_t*)red green:(uint8_t*)green blue:(uint8_t*)blue forLampsInRange:(NSRange)range
 {
-    if (range.location + range.length >= 8)
+    if (range.location + range.length > 8)
         @throw [NSException exceptionWithName:NSRangeException reason:@"Range must be between [0, 8)" userInfo:nil];
     
     for (NSUInteger i = range.location; i < range.location + range.length; i++) {

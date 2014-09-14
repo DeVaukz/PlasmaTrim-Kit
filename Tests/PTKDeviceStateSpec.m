@@ -27,8 +27,82 @@
 
 @import PlasmaTrimKit;
 #import "Specta.h"
+#define EXP_SHORTHAND 1
 #import "Expecta.h"
 
 SpecBegin(PTKDeviceState)
+
+describe(@"The brightness value", ^{
+    __block PTKDeviceState *state;
+    
+    beforeEach(^{
+        state = [PTKDeviceState emptyDeviceStateForCompatibilityWithDevice:nil];
+    });
+    
+    it(@"should accept a brightness of 0", ^{
+        uint8_t brightness = 0;
+        state.brightness = brightness;
+        expect([state valueForKey:@"brightness"]).to.equal(@(brightness));
+    });
+    
+    it(@"should accept a brightness of 100", ^{
+        uint8_t brightness = 100;
+        state.brightness = brightness;
+        expect([state valueForKey:@"brightness"]).to.equal(@(brightness));
+    });
+    
+    it(@"should accept a brightness between [0, 100]", ^{
+        uint8_t brightness = (arc4random() % 98) + 1;
+        state.brightness = brightness;
+        expect([state valueForKey:@"brightness"]).to.equal(@(brightness));
+    });
+    
+    it(@"should not accept a brightness over 100", ^{
+        uint8_t brightness = 120;
+        state.brightness = brightness;
+        expect([state valueForKey:@"brightness"]).to.equal(@(100));
+    });
+});
+
+describe(@"The RGB components of each lamp", ^{
+    __block PTKDeviceState *state;
+    
+    beforeEach(^{
+        state = [PTKDeviceState emptyDeviceStateForCompatibilityWithDevice:nil];
+    });
+    
+    it(@"should return 0 for all components of all lamps by default", ^{
+        uint8_t result[3][8];
+        uint8_t goodResult[3][8];
+        bzero(goodResult, sizeof(goodResult));
+        [state getRed:result[0] green:result[1] blue:result[2] forLampsInRange:NSMakeRange(0, 8)];
+        int cmp = memcmp(result, goodResult, sizeof(result));
+        expect(@(cmp)).to.equal(@(0));
+    });
+    
+    it(@"should throw an exception when getting the component values for and index above 7", ^{
+        NSNumber *threwException = @(NO);
+        @try {
+            [state getRed:NULL green:NULL blue:NULL forLampsInRange:NSMakeRange(0, 9)];
+        }
+        @catch(id exception) {
+            threwException = @(YES);
+        }
+        @finally {
+            expect(threwException).to.equal(@(YES));
+        }
+    });
+    
+    it(@"should set the components for a range of lamps", ^{
+        uint8_t in_val[3][8];
+        for (int i=0; i<8; i++) { in_val[0][i] = 40; in_val[1][i] = 80; in_val[2][i] = 120; }
+        [state setRed:in_val[0] green:in_val[1] blue:in_val[2] forLampsInRange:NSMakeRange(0, 8)];
+        uint8_t result[3][8];
+        bzero(result, sizeof(result));
+        [state getRed:result[0] green:result[1] blue:result[2] forLampsInRange:NSMakeRange(0, 8)];
+        int cmp = memcmp(result, in_val, sizeof(result));
+        expect(@(cmp)).to.equal(@(0));
+    });
+});
 
 SpecEnd
