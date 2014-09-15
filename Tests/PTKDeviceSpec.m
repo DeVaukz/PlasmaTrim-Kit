@@ -95,6 +95,19 @@ describe(@"a connection to the device", ^{
         IOHIDManagerClose(hidManager, kIOHIDOptionsTypeNone);
     });
     
+    it(@"should be able to stop the current sequence", ^{
+        __block BOOL done = NO;
+        __block NSError *error = nil;
+        [device stopCurrentSequenceWithCompletion:^(NSError *e) {
+            error = e;
+            done = YES;
+        }];
+        do {
+            [NSRunLoop.mainRunLoop runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+        } while (!done);
+        expect(error).to.beNil();
+    });
+    
     it(@"should read the serial number", ^{
         __block BOOL done = NO;
         __block NSError *error = nil;
@@ -112,10 +125,12 @@ describe(@"a connection to the device", ^{
         NSLog(@"Serial: %@", serial);
     });
     
-    it(@"should be able to stop the current sequence", ^{
+    it(@"should read the name", ^{
         __block BOOL done = NO;
         __block NSError *error = nil;
-        [device stopCurrentSequenceWithCompletion:^(NSError *e) {
+        __block NSString *name = nil;
+        [device recallNameWithCompletion:^(NSString *n, NSError *e) {
+            name = n;
             error = e;
             done = YES;
         }];
@@ -123,6 +138,72 @@ describe(@"a connection to the device", ^{
             [NSRunLoop.mainRunLoop runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
         } while (!done);
         expect(error).to.beNil();
+        expect(name).toNot.beNil();
+        NSLog(@"Name: %@", name);
+    });
+    
+    it(@"should read the brightness", ^{
+        __block BOOL done = NO;
+        __block NSError *error = nil;
+        __block int8_t brightness = -1;
+        [device recallBrightnessWithCompletion:^(int8_t b, NSError *e) {
+            brightness = b;
+            error = e;
+            done = YES;
+        }];
+        do {
+            [NSRunLoop.mainRunLoop runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+        } while (!done);
+        expect(error).to.beNil();
+        expect(brightness).toNot.equal(@(-1));
+        NSLog(@"Brightness: %d", brightness);
+    });
+    
+    it(@"should write and read the device state", ^{
+        __block BOOL done = NO;
+        __block NSError *error = nil;
+        __block PTKDeviceState *incomingState = nil;
+        __block PTKDeviceState *outgoingState = nil;
+        
+        uint8_t values[3][8] = { {0x0} };
+        outgoingState = [PTKDeviceState emptyDeviceStateForCompatibilityWithDevice:device];
+        outgoingState.brightness = 100;
+        
+        for (int l = 0; l < 8; l++)
+        {
+            for (int c = 0; c < 3; c++)
+            {
+                values[c][l] = 255;
+                [outgoingState setRed:values[0] green:values[1] blue:values[2] forLampsInRange:NSMakeRange(0, 8)];
+                
+                [device setDeviceState:outgoingState completion:^(NSError *e) {
+                    error = e;
+                    done = YES;
+                }];
+                do {
+                    [NSRunLoop.mainRunLoop runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+                } while (!done);
+                expect(error).to.beNil();
+                error = nil;
+                done = NO;
+                
+                [device getDeviceStateWithCompletion:^(PTKDeviceState *deviceState, NSError *e) {
+                    incomingState = deviceState;
+                    // So they compare equal.
+                    incomingState.brightness = outgoingState.brightness;
+                    error = e;
+                    done = YES;
+                }];
+                do {
+                    [NSRunLoop.mainRunLoop runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+                } while (!done);
+                expect(error).to.beNil();
+                expect(incomingState).to.equal(outgoingState);
+                error = nil;
+                done = NO;
+                incomingState = nil;
+            }
+        }
     });
     
     it(@"should be able to start the current sequence", ^{

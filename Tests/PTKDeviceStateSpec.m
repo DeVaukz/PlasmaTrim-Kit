@@ -56,12 +56,6 @@ describe(@"The brightness value", ^{
         state.brightness = brightness;
         expect([state valueForKey:@"brightness"]).to.equal(@(brightness));
     });
-    
-    it(@"should not accept a brightness over 100", ^{
-        uint8_t brightness = 120;
-        state.brightness = brightness;
-        expect([state valueForKey:@"brightness"]).to.equal(@(100));
-    });
 });
 
 describe(@"The RGB components of each lamp", ^{

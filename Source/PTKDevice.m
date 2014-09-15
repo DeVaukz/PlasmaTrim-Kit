@@ -26,9 +26,12 @@
 //----------------------------------------------------------------------------//
 
 #import "PTKDevice.h"
+#import "PTKDeviceState.h"
 #import "NSError+PKT.h"
 
 #define REPORT_SIZE 32
+// All PlasmaTrim devices have 8 lamps.
+#define LAMP_COUNT  8
 
 const uint32_t kPTKPlasmaTrimVendorID = 0x26f3;
 const uint32_t kPTKPlasmaTrimProductID = 0x1000;
@@ -259,7 +262,7 @@ static void hid_report_callback(void *context, IOReturn result, void *sender, IO
 
 //|++++++++++++++++++++++++++++++++++++|//
 - (NSUInteger)lampCount
-{ return 8; }
+{ return LAMP_COUNT; }
 
 //|++++++++++++++++++++++++++++++++++++|//
 - (void)recallSerialNumberWithCompletion:(void (^)(NSString *serial, NSError *error))completion
@@ -272,10 +275,145 @@ static void hid_report_callback(void *context, IOReturn result, void *sender, IO
         [self _sendCommand:&command responseHandler:^(const struct PlasmaTrimHIDReport * response, NSError *error) {
             NSString *serialNumber;
             if (response->command != 0xA)
-                error = [NSError errorWithDomain:PTKErrorDomain code:0x3 userInfo:@{NSLocalizedDescriptionKey : @"Received an invalid response when reading device serial number."}];
+                error = [NSError errorWithDomain:PTKErrorDomain code:0xA userInfo:@{NSLocalizedDescriptionKey : @"Received an invalid response when reading device serial number."}];
             else
                 serialNumber = [NSString stringWithFormat:@"%.2x%.2x%.2x%.2x", response->data[3], response->data[2], response->data[1], response->data[0]];
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{ completion(serialNumber, error); });
+        }];
+    });
+}
+
+//|++++++++++++++++++++++++++++++++++++|//
+- (void)storeName:(NSString *)name completion:(void (^)(NSError *error))completion
+{
+    name = [name copy];
+    
+    dispatch_async(_queue, ^{
+        struct PlasmaTrimHIDReport command = { .command=0x8, .data={0x0} };
+        [name getBytes:command.data maxLength:26 usedLength:NULL encoding:NSASCIIStringEncoding options:NSUTF8StringEncoding range:NSMakeRange(0, name.length) remainingRange:NULL];
+        
+        if (completion == NULL)
+            [self _sendCommand:&command responseHandler:nullCallback];
+        else
+            [self _sendCommand:&command responseHandler:^(const struct PlasmaTrimHIDReport * response, NSError *error) {
+                if (response->command != 0x8)
+                    error = [NSError errorWithDomain:PTKErrorDomain code:0x8 userInfo:@{NSLocalizedDescriptionKey : @"Received an invalid response when storing device name."}];
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{ completion(error); });
+            }];
+    });
+}
+
+//|++++++++++++++++++++++++++++++++++++|//
+- (void)recallNameWithCompletion:(void (^)(NSString *name, NSError *error))completion
+{
+    if (!completion)
+        return;
+    
+    dispatch_async(_queue, ^{
+        struct PlasmaTrimHIDReport command = { .command=0x9, .data={0x0} };
+        [self _sendCommand:&command responseHandler:^(const struct PlasmaTrimHIDReport * response, NSError *error) {
+            NSString *name;
+            if (response->command != 0x9)
+                error = [NSError errorWithDomain:PTKErrorDomain code:0x9 userInfo:@{NSLocalizedDescriptionKey : @"Received an invalid response when reading device name."}];
+            else
+                name = [[NSString alloc] initWithBytes:command.data length:26 encoding:NSUTF8StringEncoding];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{ completion(name, error); });
+        }];
+    });
+}
+
+//|++++++++++++++++++++++++++++++++++++|//
+- (void)storeBrightness:(int8_t)brightness completion:(void (^)(NSError *error))completion
+{
+    if (brightness < 0 || brightness > 100)
+        @throw [NSException exceptionWithName:NSRangeException reason:@"Brightness must be within [0, 100]" userInfo:nil];
+    
+    dispatch_async(_queue, ^{
+        struct PlasmaTrimHIDReport command = { .command=0xB, .data={0x0} };
+        command.data[0] = brightness;
+        
+        if (completion == NULL)
+            [self _sendCommand:&command responseHandler:nullCallback];
+        else
+            [self _sendCommand:&command responseHandler:^(const struct PlasmaTrimHIDReport * response, NSError *error) {
+                if (response->command != 0xB)
+                    error = [NSError errorWithDomain:PTKErrorDomain code:0xB userInfo:@{NSLocalizedDescriptionKey : @"Received an invalid response when storing brightness."}];
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{ completion(error); });
+            }];
+    });
+}
+
+//|++++++++++++++++++++++++++++++++++++|//
+- (void)recallBrightnessWithCompletion:(void (^)(int8_t brightness, NSError *error))completion
+{
+    if (!completion)
+        return;
+    
+    dispatch_async(_queue, ^{
+        struct PlasmaTrimHIDReport command = { .command=0xC, .data={0x0} };
+        [self _sendCommand:&command responseHandler:^(const struct PlasmaTrimHIDReport * response, NSError *error) {
+            int8_t brightness = -1;
+            if (response->command != 0xC)
+                error = [NSError errorWithDomain:PTKErrorDomain code:0xC userInfo:@{NSLocalizedDescriptionKey : @"Received an invalid response when reading brightness."}];
+            else
+                brightness = response->data[0];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{ completion(brightness, error); });
+        }];
+    });
+}
+
+//|++++++++++++++++++++++++++++++++++++|//
+- (void)setDeviceState:(PTKDeviceState*)deviceState completion:(void (^)(NSError *error))completion
+{
+    uint8_t brightness = deviceState.brightness;
+    if (brightness < 0 || brightness > 100)
+        @throw [NSException exceptionWithName:NSRangeException reason:@"Brightness must be within [0, 100]" userInfo:nil];
+    
+    struct PlasmaTrimHIDReport command = { .command=0x0, .data={0x0} };
+    uint8_t componentValues[3][LAMP_COUNT];
+    [deviceState getRed:componentValues[0] green:componentValues[1] blue:componentValues[2] forLampsInRange:NSMakeRange(0, LAMP_COUNT)];
+    for (uint8_t i = 0; i < LAMP_COUNT; i++) {
+        command.data[i*3] = componentValues[0][i];
+        command.data[i*3 + 1] = componentValues[1][i];
+        command.data[i*3 + 2] = componentValues[2][i];
+    }
+    command.data[24] = brightness;
+    
+    dispatch_async(_queue, ^{
+        if (completion == NULL)
+            [self _sendCommand:&command responseHandler:nullCallback];
+        else
+            [self _sendCommand:&command responseHandler:^(const struct PlasmaTrimHIDReport * response, NSError *error) {
+                if (response->command != 0x0)
+                    error = [NSError errorWithDomain:PTKErrorDomain code:0x0 userInfo:@{NSLocalizedDescriptionKey : @"Received an invalid response when writing device state."}];
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{ completion(error); });
+            }];
+    });
+}
+
+//|++++++++++++++++++++++++++++++++++++|//
+- (void)getDeviceStateWithCompletion:(void (^)(PTKDeviceState *deviceState, NSError *error))completion
+{
+    if (!completion)
+        return;
+    
+    dispatch_async(_queue, ^{
+        struct PlasmaTrimHIDReport command = { .command=0x1, .data={0x0} };
+        [self _sendCommand:&command responseHandler:^(const struct PlasmaTrimHIDReport * response, NSError *error) {
+            PTKDeviceState *state;
+            if (response->command != 0x1)
+                error = [NSError errorWithDomain:PTKErrorDomain code:0x1 userInfo:@{NSLocalizedDescriptionKey : @"Received an invalid response when reading device state."}];
+            else {
+                state = [PTKDeviceState emptyDeviceStateForCompatibilityWithDevice:self];
+                uint8_t componentValues[3][LAMP_COUNT];
+                for (uint8_t i = 0; i < LAMP_COUNT; i++) {
+                    componentValues[0][i] = response->data[i*3];
+                    componentValues[1][i] = response->data[i*3 + 1];
+                    componentValues[2][i] = response->data[i*3 + 2];
+                }
+                [state setRed:componentValues[0] green:componentValues[1] blue:componentValues[2] forLampsInRange:NSMakeRange(0, LAMP_COUNT)];
+            }
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{ completion(state, error); });
         }];
     });
 }
