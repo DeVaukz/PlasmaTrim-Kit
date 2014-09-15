@@ -42,17 +42,21 @@ struct __attribute((packed)) PlasmaTrimHIDReport {
 };
 
 typedef void (^HIDResponse)(struct PlasmaTrimHIDReport const * report, NSError* error);
+// Callback used when the sender does not care about handling the response.
 HIDResponse nullCallback = ^(struct PlasmaTrimHIDReport const * __unused report, NSError* __unused error) { };
 
 
 //----------------------------------------------------------------------------//
 @implementation PTKDevice {
     IOHIDDeviceRef _device;
+    //! The run lopp this device was initialied on.  Used to schedule the
+    //! I/O HID report callback once the device is opened.
     CFRunLoopRef _runLoop;
     dispatch_queue_t _queue;
     //! Array of \ref HIDResponse blocks.  The first block is executed each
     //! time a HID report is received.
     NSMutableArray *_replyQueue;
+    //! Buffer to receive I/O HID reports.
     uint8_t _inboundReportBuffer[REPORT_SIZE];
     struct {
         BOOL isConnectionOpen :1;
@@ -63,6 +67,8 @@ HIDResponse nullCallback = ^(struct PlasmaTrimHIDReport const * __unused report,
 - (instancetype)initWithIOHIDDevice:(IOHIDDeviceRef)device error:(NSError**)error
 {
 #pragma unused (error)
+    if (!device) return nil;
+    
     self = [super init];
     if (self)
     {
@@ -70,7 +76,7 @@ HIDResponse nullCallback = ^(struct PlasmaTrimHIDReport const * __unused report,
         sprintf(buffer, "PlasmaTrimKit.device.%x", (unsigned int)device);
         _replyQueue = [[NSMutableArray alloc] initWithCapacity:2];
         _queue = dispatch_queue_create(buffer, NULL);
-        _runLoop = (CFRunLoopRef)CFRetain( CFRunLoopGetCurrent() );
+        _runLoop = (CFRunLoopRef)CFRetain(CFRunLoopGetCurrent());
         _device = (IOHIDDeviceRef)CFRetain(device);
         
         // Verify that the vendor ID matches
@@ -100,6 +106,7 @@ HIDResponse nullCallback = ^(struct PlasmaTrimHIDReport const * __unused report,
     return self;
 }
 
+//|++++++++++++++++++++++++++++++++++++|//
 - (void)dealloc
 {
     [self closeWithError:NULL];
@@ -156,6 +163,7 @@ HIDResponse nullCallback = ^(struct PlasmaTrimHIDReport const * __unused report,
 //◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦//
 
 //|++++++++++++++++++++++++++++++++++++|//
+//! Callback to handle I/O HID reports.
 static void hid_report_callback(void *context, IOReturn result, void *sender, IOHIDReportType report_type, uint32_t report_id, uint8_t *report, CFIndex report_length)
 {
 #pragma unused (sender)
@@ -274,7 +282,7 @@ static void hid_report_callback(void *context, IOReturn result, void *sender, IO
         struct PlasmaTrimHIDReport command = { .command=0xA, .data={0x0} };
         [self _sendCommand:&command responseHandler:^(const struct PlasmaTrimHIDReport * response, NSError *error) {
             NSString *serialNumber;
-            if (response->command != 0xA)
+            if (!response || response->command != 0xA)
                 error = [NSError errorWithDomain:PTKErrorDomain code:0xA userInfo:@{NSLocalizedDescriptionKey : @"Received an invalid response when reading device serial number."}];
             else
                 serialNumber = [NSString stringWithFormat:@"%.2x%.2x%.2x%.2x", response->data[3], response->data[2], response->data[1], response->data[0]];
@@ -296,7 +304,7 @@ static void hid_report_callback(void *context, IOReturn result, void *sender, IO
             [self _sendCommand:&command responseHandler:nullCallback];
         else
             [self _sendCommand:&command responseHandler:^(const struct PlasmaTrimHIDReport * response, NSError *error) {
-                if (response->command != 0x8)
+                if (!response || response->command != 0x8)
                     error = [NSError errorWithDomain:PTKErrorDomain code:0x8 userInfo:@{NSLocalizedDescriptionKey : @"Received an invalid response when storing device name."}];
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{ completion(error); });
             }];
@@ -313,7 +321,7 @@ static void hid_report_callback(void *context, IOReturn result, void *sender, IO
         struct PlasmaTrimHIDReport command = { .command=0x9, .data={0x0} };
         [self _sendCommand:&command responseHandler:^(const struct PlasmaTrimHIDReport * response, NSError *error) {
             NSString *name;
-            if (response->command != 0x9)
+            if (!response || response->command != 0x9)
                 error = [NSError errorWithDomain:PTKErrorDomain code:0x9 userInfo:@{NSLocalizedDescriptionKey : @"Received an invalid response when reading device name."}];
             else
                 name = [[NSString alloc] initWithBytes:command.data length:26 encoding:NSUTF8StringEncoding];
@@ -336,7 +344,7 @@ static void hid_report_callback(void *context, IOReturn result, void *sender, IO
             [self _sendCommand:&command responseHandler:nullCallback];
         else
             [self _sendCommand:&command responseHandler:^(const struct PlasmaTrimHIDReport * response, NSError *error) {
-                if (response->command != 0xB)
+                if (!response || response->command != 0xB)
                     error = [NSError errorWithDomain:PTKErrorDomain code:0xB userInfo:@{NSLocalizedDescriptionKey : @"Received an invalid response when storing brightness."}];
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{ completion(error); });
             }];
@@ -353,7 +361,7 @@ static void hid_report_callback(void *context, IOReturn result, void *sender, IO
         struct PlasmaTrimHIDReport command = { .command=0xC, .data={0x0} };
         [self _sendCommand:&command responseHandler:^(const struct PlasmaTrimHIDReport * response, NSError *error) {
             int8_t brightness = -1;
-            if (response->command != 0xC)
+            if (!response || response->command != 0xC)
                 error = [NSError errorWithDomain:PTKErrorDomain code:0xC userInfo:@{NSLocalizedDescriptionKey : @"Received an invalid response when reading brightness."}];
             else
                 brightness = response->data[0];
@@ -384,7 +392,7 @@ static void hid_report_callback(void *context, IOReturn result, void *sender, IO
             [self _sendCommand:&command responseHandler:nullCallback];
         else
             [self _sendCommand:&command responseHandler:^(const struct PlasmaTrimHIDReport * response, NSError *error) {
-                if (response->command != 0x0)
+                if (!response || response->command != 0x0)
                     error = [NSError errorWithDomain:PTKErrorDomain code:0x0 userInfo:@{NSLocalizedDescriptionKey : @"Received an invalid response when writing device state."}];
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{ completion(error); });
             }];
@@ -401,7 +409,7 @@ static void hid_report_callback(void *context, IOReturn result, void *sender, IO
         struct PlasmaTrimHIDReport command = { .command=0x1, .data={0x0} };
         [self _sendCommand:&command responseHandler:^(const struct PlasmaTrimHIDReport * response, NSError *error) {
             PTKDeviceState *state;
-            if (response->command != 0x1)
+            if (!response || response->command != 0x1)
                 error = [NSError errorWithDomain:PTKErrorDomain code:0x1 userInfo:@{NSLocalizedDescriptionKey : @"Received an invalid response when reading device state."}];
             else {
                 state = [PTKDeviceState emptyDeviceStateForCompatibilityWithDevice:self];
@@ -431,7 +439,7 @@ static void hid_report_callback(void *context, IOReturn result, void *sender, IO
             [self _sendCommand:&command responseHandler:nullCallback];
         else
             [self _sendCommand:&command responseHandler:^(const struct PlasmaTrimHIDReport * response, NSError *error) {
-                if (response->command != 0x3)
+                if (!response || response->command != 0x3)
                     error = [NSError errorWithDomain:PTKErrorDomain code:0x3 userInfo:@{NSLocalizedDescriptionKey : @"Received an invalid response when stopping sequence."}];
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{ completion(error); });
             }];
@@ -447,7 +455,7 @@ static void hid_report_callback(void *context, IOReturn result, void *sender, IO
             [self _sendCommand:&command responseHandler:nullCallback];
         else
             [self _sendCommand:&command responseHandler:^(const struct PlasmaTrimHIDReport * response, NSError *error) {
-                if (response->command != 0x2)
+                if (!response || response->command != 0x2)
                     error = [NSError errorWithDomain:PTKErrorDomain code:0x2 userInfo:@{NSLocalizedDescriptionKey : @"Received an invalid response when starting sequence."}];
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{ completion(error); });
             }];
