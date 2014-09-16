@@ -48,7 +48,6 @@ HIDResponse nullCallback = ^(struct PlasmaTrimHIDReport const * __unused report,
 
 //----------------------------------------------------------------------------//
 @implementation PTKDevice {
-    IOHIDDeviceRef _device;
     //! The run lopp this device was initialied on.  Used to schedule the
     //! I/O HID report callback once the device is opened.
     CFRunLoopRef _runLoop;
@@ -66,7 +65,6 @@ HIDResponse nullCallback = ^(struct PlasmaTrimHIDReport const * __unused report,
 //|++++++++++++++++++++++++++++++++++++|//
 - (instancetype)initWithIOHIDDevice:(IOHIDDeviceRef)device error:(NSError**)error
 {
-#pragma unused (error)
     if (!device) return nil;
     
     self = [super init];

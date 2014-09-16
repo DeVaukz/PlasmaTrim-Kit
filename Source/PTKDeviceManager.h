@@ -27,9 +27,31 @@
 
 @import Foundation;
 
+//---------------------------------------------------------------------------//
+//! @name       Notifications
+//! @relates    PTKDeviceManager
+//
+
+//! A device was plugged in.
+extern NSString * const PTKDeviceConnectedNotification;
+//! A device was removed.
+extern NSString * const PTKDeviceDisconnectedNotification;
+//! The device that was either connected or disconnected.
+extern NSString * const PTKDeviceNotificationDeviceKey;
+
+
+
 //----------------------------------------------------------------------------//
 @interface PTKDeviceManager : NSObject
 
-+ (instancetype)sharedDeviceManager;
+//! Initializes the receiver.
+//!
+//! This sets up the underlying IOHIDManager and schedules the callbacks
+//! on the current run loop.
+- (instancetype)initWithError:(NSError**)error;
+
+//! Returns an set of \ref PTKDevice objects, each representing a connected
+//! device.
+- (NSSet*)connectedDevices;
 
 @end

@@ -1,10 +1,10 @@
 //----------------------------------------------------------------------------//
 //|
 //|             PlasmaTrimKit - The Objective-C SDK for the USB PlasmaTrim
-//! @file       NSError+PKT.h
-//!
-//! @author     D.V.
-//! @copyright  Copyright (c) 2014 D.V. All rights reserved.
+//|             PTKDeviceManagerSpec.m
+//|
+//|             D.V.
+//|             Copyright (c) 2014 D.V. All rights reserved.
 //|
 //| Permission is hereby granted, free of charge, to any person obtaining a
 //| copy of this software and associated documentation files (the "Software"),
@@ -25,21 +25,20 @@
 //| SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //----------------------------------------------------------------------------//
 
-@import Foundation;
-@import IOKit;
+@import PlasmaTrimKit;
+#import "Specta.h"
+#define EXP_SHORTHAND 1
+#import "Expecta.h"
 
-//! I/O Kit Errors.
-extern NSString * const IOKitErrorDomain;
-//! PlasmaTrim Errors
-extern NSString * const PTKErrorDomain;
+SpecBegin(PTKDeviceManager)
 
+it(@"should initialize", ^{
+    NSError *error = nil;
+    PTKDeviceManager *deviceManager = [[PTKDeviceManager alloc] initWithError:&error];
+    expect(deviceManager).toNot.beNil();
+    expect(error).to.beNil();
+    
+    expect(deviceManager.connectedDevices.count).to.beGreaterThan(@(0));
+});
 
-//----------------------------------------------------------------------------//
-@interface NSError (PKT)
-
-+ (NSString*)stringForIOKitError:(IOReturn)code;
-
-+ (instancetype)ioKitErrorWithCode:(IOReturn)code userInfo:(NSDictionary*)userInfo;
-+ (instancetype)ioKitErrorWithCode:(IOReturn)code description:(NSString*)description;
-
-@end
+SpecEnd

@@ -31,6 +31,8 @@
 @class PTKDeviceState;
 
 //----------------------------------------------------------------------------//
+//! Manages the communication with a single PlasmaTrim device.
+//
 @interface PTKDevice : NSObject
 
 - (instancetype)initWithIOHIDDevice:(IOHIDDeviceRef)device error:(NSError**)error;
@@ -60,6 +62,9 @@
 #pragma mark -  Device Properties
 //! @name       Device Properties
 //◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦//
+
+//! The underlying HID device.
+@property (nonatomic, readonly) IOHIDDeviceRef device;
 
 //! The device's USB Vendor ID.
 @property (nonatomic, readonly) NSNumber *vendorID;

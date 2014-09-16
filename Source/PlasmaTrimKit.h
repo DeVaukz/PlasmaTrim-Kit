@@ -31,3 +31,4 @@
 #import <PlasmaTrimKit/PTKDevice.h>
 #import <PlasmaTrimKit/PTKDeviceManager.h>
 
+#import <PlasmaTrimKit/NSError+PKT.h>
