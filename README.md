@@ -1,7 +1,7 @@
 PlasmaTrimKit
 =============
 
-PlasmaTrimKit is a library that is designed to make it easy to access one or more [USB PlasmaTrim](http://www.thephotonfactory.com/pt_acces.shtml) LED light strips.  The aim of this library is to enable you to create your own applications for the USB PlasmaTrim.  It's tested and fully documented.
+PlasmaTrimKit is a library that is designed to make it easy to control one or more [USB PlasmaTrim](http://www.thephotonfactory.com/pt_acces.shtml) LED light strips.  The aim of this library is to enable you to create your own applications for the USB PlasmaTrim.  It's tested and fully documented.
 
 NOTE: Uploading and downloading sequences is not currently supported.
 
@@ -11,7 +11,7 @@ A USB PlasmaTrim can be purchased from [The Photon Factory](http://www.thephoton
 
 ## Get Started
 
-Add PlasmaTrimKit to your project as you would any other framework.  PlasmaTrimKit includes a module map, so it can be included in your code using  `@import PlasmaTrimKit` or `#import <PlasmaTrimKit/PlasmaTrimKit.h>`.
+Add PlasmaTrimKit to your project as you would any other framework.  PlasmaTrimKit includes a module map, so it can be included in your code using  `@import PlasmaTrimKit;` or `#import <PlasmaTrimKit/PlasmaTrimKit.h>`.
 
 ### Getting a list of connected devices
 
@@ -25,7 +25,7 @@ A `PTKDeviceManager` emits notifications when a device is connected or disconnec
 
 ### Interacting with a device
 
-Each PlasmaTrim device is managed by an instance of `PTKDevice`.  Before interacting with a device, a connection to the device must be established.
+Each PlasmaTrim device is represented by an instance of `PTKDevice`.  Before interacting with a device, a connection must be established.
 
 ```objc
 PTKDevice *device = [connectedDevices anyObject];
@@ -54,7 +54,7 @@ offDeviceState.brightness = 100;
 // All lamps off.
 ```
 
-It is not possible to read the immediate brightness value from the device.  Any `PTKDeviceState` retrieved from the device will have a brightness of `-1`, indicating it is unknown.
+Because it is not possible to read the immediate brightness value from the device, any `PTKDeviceState` retrieved from the device will have a brightness of `-1`, indicating that it is unknown.
 
 ### Building The Documentation
 

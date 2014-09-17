@@ -38,9 +38,9 @@
 
 //! The shared brightness value.
 //!
-//! This value must be between [0, 100] and globally scales the output without
-//! reducing the dynamic range.  When reading this value, \c -1 indicates that
-//! the brightness is unknown.
+//! This value must be between [0, 100] and globally scales the output of all
+//! the lamps without reducing the dynamic range.  When reading this value,
+//! \c -1 indicates that the brightness is unknown.
 @property (nonatomic, readwrite) int8_t brightness;
 
 //! Returns the RGB component values in the respective arguments for the lamp
