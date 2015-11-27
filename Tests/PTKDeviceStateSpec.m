@@ -4,7 +4,7 @@
 //|             PTKDeviceStateSpec.m
 //|
 //|             D.V.
-//|             Copyright (c) 2014 D.V. All rights reserved.
+//|             Copyright (c) 2014-2015 D.V. All rights reserved.
 //|
 //| Permission is hereby granted, free of charge, to any person obtaining a
 //| copy of this software and associated documentation files (the "Software"),
@@ -26,9 +26,8 @@
 //----------------------------------------------------------------------------//
 
 @import PlasmaTrimKit;
-#import "Specta.h"
-#define EXP_SHORTHAND 1
-#import "Expecta.h"
+@import Specta;
+#import <Expecta/Expecta.h>
 
 SpecBegin(PTKDeviceState)
 

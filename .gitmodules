@@ -4,7 +4,6 @@
 [submodule "External/specta"]
 	path = External/specta
 	url = https://github.com/specta/specta.git
-	branch = 0.3-wip
-[submodule "External/xcconfigs"]
-	path = External/xcconfigs
+[submodule "Configuration"]
+	path = Configuration
 	url = https://github.com/DeVaukz/xcconfigs.git

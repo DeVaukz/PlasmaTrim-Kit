@@ -4,7 +4,7 @@
 //|             PTKDevice.m
 //|
 //|             D.V.
-//|             Copyright (c) 2014 D.V. All rights reserved.
+//|             Copyright (c) 2014-2015 D.V. All rights reserved.
 //|
 //| Permission is hereby granted, free of charge, to any person obtaining a
 //| copy of this software and associated documentation files (the "Software"),
@@ -167,7 +167,7 @@ static void hid_report_callback(void *context, IOReturn result, void *sender, IO
 #pragma unused (sender)
 #pragma unused (report_id)
 #if DEBUG
-    NSLog(@"Got HID report: %@", [NSData dataWithBytes:report length:report_length]);
+    NSLog(@"Got HID report: %@", [NSData dataWithBytes:report length:(NSUInteger)report_length]);
 #endif
     
     PTKDevice *self = (__bridge PTKDevice*)context;
@@ -185,7 +185,7 @@ static void hid_report_callback(void *context, IOReturn result, void *sender, IO
             // We need this to be copied by the block.
             struct PlasmaTrimHIDReport response;
             NSCAssert(report_length == REPORT_SIZE, @"Got an invalid report length %lu", report_length);
-            memcpy(&response, report, report_length);
+            memcpy(&response, report, (unsigned long)report_length);
             
             callback(&response, nil);
         } else {
@@ -336,7 +336,7 @@ static void hid_report_callback(void *context, IOReturn result, void *sender, IO
     
     dispatch_async(_queue, ^{
         struct PlasmaTrimHIDReport command = { .command=0xB, .data={0x0} };
-        command.data[0] = brightness;
+        command.data[0] = (uint8_t)brightness;
         
         if (completion == NULL)
             [self _sendCommand:&command responseHandler:nullCallback];
@@ -362,7 +362,7 @@ static void hid_report_callback(void *context, IOReturn result, void *sender, IO
             if (!response || response->command != 0xC)
                 error = [NSError errorWithDomain:PTKErrorDomain code:0xC userInfo:@{NSLocalizedDescriptionKey : @"Received an invalid response when reading brightness."}];
             else
-                brightness = response->data[0];
+                brightness = (int8_t)response->data[0];
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{ completion(brightness, error); });
         }];
     });
@@ -371,7 +371,7 @@ static void hid_report_callback(void *context, IOReturn result, void *sender, IO
 //|++++++++++++++++++++++++++++++++++++|//
 - (void)setDeviceState:(PTKDeviceState*)deviceState completion:(void (^)(NSError *error))completion
 {
-    uint8_t brightness = deviceState.brightness;
+    uint8_t brightness = (uint8_t)deviceState.brightness;
     if (brightness < 0 || brightness > 100)
         @throw [NSException exceptionWithName:NSRangeException reason:@"Brightness must be within [0, 100]" userInfo:nil];
     

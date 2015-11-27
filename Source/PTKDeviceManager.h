@@ -4,7 +4,7 @@
 //! @file       PTKDeviceManager.h
 //!
 //! @author     D.V.
-//! @copyright  Copyright (c) 2014 D.V. All rights reserved.
+//! @copyright  Copyright (c) 2014-2015 D.V. All rights reserved.
 //|
 //| Permission is hereby granted, free of charge, to any person obtaining a
 //| copy of this software and associated documentation files (the "Software"),
@@ -26,6 +26,8 @@
 //----------------------------------------------------------------------------//
 
 @import Foundation;
+
+@class PTKDevice;
 
 //---------------------------------------------------------------------------//
 //! @name       Notifications
@@ -52,6 +54,6 @@ extern NSString * const PTKDeviceNotificationDeviceKey;
 
 //! Returns an set of \ref PTKDevice objects, each representing a connected
 //! device.
-- (NSSet*)connectedDevices;
+- (NSSet<PTKDevice*> *)connectedDevices;
 
 @end

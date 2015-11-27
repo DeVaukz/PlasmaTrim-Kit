@@ -4,7 +4,7 @@
 //|             PTKDeviceManager.m
 //|
 //|             D.V.
-//|             Copyright (c) 2014 D.V. All rights reserved.
+//|             Copyright (c) 2014-2015 D.V. All rights reserved.
 //|
 //| Permission is hereby granted, free of charge, to any person obtaining a
 //| copy of this software and associated documentation files (the "Software"),
@@ -43,7 +43,7 @@ NSString * const PTKDeviceNotificationDeviceKey = @"PTKDeviceNotificationDeviceK
 //----------------------------------------------------------------------------//
 @implementation PTKDeviceManager {
     IOHIDManagerRef _hidManager;
-    NSMutableSet *_devices;
+    NSMutableSet<PTKDevice*> *_devices;
 }
 
 //|++++++++++++++++++++++++++++++++++++|//
@@ -96,7 +96,7 @@ NSString * const PTKDeviceNotificationDeviceKey = @"PTKDeviceNotificationDeviceK
 }
 
 //|++++++++++++++++++++++++++++++++++++|//
-- (NSSet*)connectedDevices
+- (NSSet<PTKDevice*> *)connectedDevices
 {
     @synchronized(_devices) {
         return [_devices copy];
