@@ -30,12 +30,14 @@
 
 @class PTKDeviceState;
 
+NS_ASSUME_NONNULL_BEGIN
+
 //----------------------------------------------------------------------------//
 //! Manages the communication with a single PlasmaTrim device.
 //
 @interface PTKDevice : NSObject
 
-- (instancetype)initWithIOHIDDevice:(IOHIDDeviceRef)device error:(NSError**)error;
+- (nullable instancetype)initWithIOHIDDevice:(IOHIDDeviceRef)device error:(NSError**)error;
 
 //◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦//
 #pragma mark -  Establishing A Connection To The Device
@@ -67,32 +69,32 @@
 @property (nonatomic, readonly) IOHIDDeviceRef device;
 
 //! The device's USB Vendor ID.
-@property (nonatomic, readonly) NSNumber *vendorID;
+@property (nonatomic, readonly, nullable) NSNumber *vendorID;
 //! The device's USB Product ID.
-@property (nonatomic, readonly) NSNumber *productID;
+@property (nonatomic, readonly, nullable) NSNumber *productID;
 //! The device's USB Vendor Name.
-@property (nonatomic, readonly) NSString *vendorName;
+@property (nonatomic, readonly, nullable) NSString *vendorName;
 //! The device's USB Product Name.
-@property (nonatomic, readonly) NSString *productName;
+@property (nonatomic, readonly, nullable) NSString *productName;
 //! The number of lamps in the receiver.  This is currently always eight.
 @property (nonatomic, readonly) NSUInteger lampCount;
 
 //! Invokes the \a completion handler with a string containing the serial number
 //! printed on the label on the back of the PlasmaTrim, which can be used to
 //! absolutely identify a unit.
-- (void)recallSerialNumberWithCompletion:(void (^)(NSString *serial, NSError *error))completion;
+- (void)recallSerialNumberWithCompletion:(void (^)(NSString* _Nullable serial, NSError* _Nullable error))completion;
 
 //! Writes a new name the device's non-volatile memory.
 //!
 //! @warning
 //! This method writes to the device's non-volatile memory.  Calling it
 //! repeatedly may shorten the lifespan of the device.
-- (void)storeName:(NSString *)name completion:(void (^)(NSError *error))completion;
+- (void)storeName:(NSString *)name completion:(void (^)(NSError* _Nullable error))completion;
 
 //! Invokes the \a completion handler with a string containing the name
 //! assigned to the device.  This name can be modified using the
 //! \c -storeName:completion: method.
-- (void)recallNameWithCompletion:(void (^)(NSString *name, NSError *error))completion;
+- (void)recallNameWithCompletion:(void (^)(NSString* _Nullable name, NSError* _Nullable error))completion;
 
 //! Writes a new brightness value to the device's non-volatile memory.  This
 //! value globally scales the output of the device without reducing the dynamic
@@ -103,19 +105,19 @@
 //! @warning
 //! This method writes to the device's non-volatile memory.  Calling it
 //! repeatedly may shorten the lifespan of the device.
-- (void)storeBrightness:(int8_t)brightness completion:(void (^)(NSError *error))completion;
+- (void)storeBrightness:(int8_t)brightness completion:(void (^)(NSError* _Nullable error))completion;
 
 //! Invokes the \a completion handler with a number between [0,100] representing
 //! the brightness stored in the device's non-volatile memory.
-- (void)recallBrightnessWithCompletion:(void (^)(int8_t brightness, NSError *error))completion;
+- (void)recallBrightnessWithCompletion:(void (^)(int8_t brightness, NSError* _Nullable error))completion;
 
 //! Writes a new \ref PKTDevice state to the volatile memory of the device.
 //!
 //! Writing a new new device state updates the color of each lamp as well as
-//! the global brightness value.  This he brightness value is not persistent
+//! the global brightness value.  This brightness value is not persistent
 //! and will not affect the value received by calling
 //! \c -recallBrightnessWithCompletion.
-- (void)setDeviceState:(PTKDeviceState*)deviceState completion:(void (^)(NSError *error))completion;
+- (void)setDeviceState:(PTKDeviceState*)deviceState completion:(void (^)(NSError* _Nullable error))completion;
 
 //! Invokes the \a completion handler with a \ref PTKDeviceState object
 //! containing the color values of each lamp.
@@ -123,7 +125,7 @@
 //! The device state object passed to your completion handler will not have
 //! a meaningful brightness value.  Color values from the currently playing
 //! sequence are not captured in the device state.
-- (void)getDeviceStateWithCompletion:(void (^)(PTKDeviceState *deviceState, NSError *error))completion;
+- (void)getDeviceStateWithCompletion:(void (^)(PTKDeviceState* _Nullable deviceState, NSError*_Nullable error))completion;
 
 //◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦//
 #pragma mark -  Working With Sequences
@@ -131,9 +133,11 @@
 //◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦//
 
 //! Pauses the currently playing sequence.
-- (void)stopCurrentSequenceWithCompletion:(void (^)(NSError *error))completion;
+- (void)stopCurrentSequenceWithCompletion:(void (^)(NSError* _Nullable error))completion;
 
 //! Resumes the sequence currently stored in the device's non-voltile memory.
-- (void)startCurrentSequenceWithCompletion:(void (^)(NSError *error))completion;
+- (void)startCurrentSequenceWithCompletion:(void (^)(NSError* _Nullable error))completion;
 
 @end
+
+NS_ASSUME_NONNULL_END

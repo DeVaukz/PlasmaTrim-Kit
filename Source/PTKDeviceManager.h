@@ -29,6 +29,8 @@
 
 @class PTKDevice;
 
+NS_ASSUME_NONNULL_BEGIN
+
 //---------------------------------------------------------------------------//
 //! @name       Notifications
 //! @relates    PTKDeviceManager
@@ -50,10 +52,12 @@ extern NSString * const PTKDeviceNotificationDeviceKey;
 //!
 //! This sets up the underlying IOHIDManager and schedules the callbacks
 //! on the current run loop.
-- (instancetype)initWithError:(NSError**)error;
+- (nullable instancetype)initWithError:(NSError**)error;
 
 //! Returns an set of \ref PTKDevice objects, each representing a connected
 //! device.
 - (NSSet<PTKDevice*> *)connectedDevices;
 
 @end
+
+NS_ASSUME_NONNULL_END

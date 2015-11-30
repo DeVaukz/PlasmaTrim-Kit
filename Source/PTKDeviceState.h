@@ -29,6 +29,8 @@
 
 @class PTKDevice;
 
+NS_ASSUME_NONNULL_BEGIN
+
 //----------------------------------------------------------------------------//
 @interface PTKDeviceState : NSObject <NSCopying>
 
@@ -65,3 +67,5 @@
 - (void)setRed:(uint8_t*)red green:(uint8_t*)green blue:(uint8_t*)blue forLampsInRange:(NSRange)range;
 
 @end
+
+NS_ASSUME_NONNULL_END

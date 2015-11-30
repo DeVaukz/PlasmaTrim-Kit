@@ -28,6 +28,8 @@
 @import Foundation;
 @import IOKit;
 
+NS_ASSUME_NONNULL_BEGIN
+
 //! I/O Kit Errors.
 extern NSString * const IOKitErrorDomain;
 //! PlasmaTrim Errors
@@ -43,3 +45,5 @@ extern NSString * const PTKErrorDomain;
 + (instancetype)ioKitErrorWithCode:(IOReturn)code description:(NSString*)description;
 
 @end
+
+NS_ASSUME_NONNULL_END
