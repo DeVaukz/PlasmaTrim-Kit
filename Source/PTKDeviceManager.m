@@ -42,8 +42,31 @@ NSString * const PTKDeviceNotificationDeviceKey = @"PTKDeviceNotificationDeviceK
 
 //----------------------------------------------------------------------------//
 @implementation PTKDeviceManager {
+    dispatch_semaphore_t _sema;
     IOHIDManagerRef _hidManager;
     NSMutableSet<PTKDevice*> *_devices;
+}
+
+//|++++++++++++++++++++++++++++++++++++|//
++ (void)hidThreadMain:(NSValue*)object
+{
+    PTKDeviceManager *deviceManager = [object nonretainedObjectValue];
+    
+    // Get all current devices
+    NSSet *devices = (__bridge_transfer NSSet*)IOHIDManagerCopyDevices(deviceManager->_hidManager);
+    [devices enumerateObjectsUsingBlock:^(id device, BOOL __unused *stop) {
+        PTKDevice *newDevice = [[PTKDevice alloc] initWithIOHIDDevice:(__bridge IOHIDDeviceRef)device error:NULL];
+        if (device)
+            [deviceManager->_devices addObject:newDevice];
+    }];
+    
+    IOHIDManagerRegisterDeviceMatchingCallback(deviceManager->_hidManager, &hid_device_matched, (__bridge void *)deviceManager);
+    IOHIDManagerRegisterDeviceRemovalCallback(deviceManager->_hidManager, &hid_device_removed, (__bridge void *)deviceManager);
+    IOHIDManagerScheduleWithRunLoop(deviceManager->_hidManager, CFRunLoopGetCurrent(), kCFRunLoopCommonModes);
+    
+    dispatch_semaphore_signal(deviceManager->_sema);
+    
+    CFRunLoopRun();
 }
 
 //|++++++++++++++++++++++++++++++++++++|//
@@ -61,9 +84,6 @@ NSString * const PTKDeviceNotificationDeviceKey = @"PTKDeviceNotificationDeviceK
             @(kIOHIDProductIDKey): @(kPTKPlasmaTrimProductID)
         };
         IOHIDManagerSetDeviceMatching(_hidManager, (__bridge CFDictionaryRef)matchingDictionary);
-        IOHIDManagerRegisterDeviceMatchingCallback(_hidManager, &hid_device_matched, (__bridge void *)self);
-        IOHIDManagerRegisterDeviceRemovalCallback(_hidManager, &hid_device_removed, (__bridge void *)self);
-        IOHIDManagerScheduleWithRunLoop(_hidManager, CFRunLoopGetCurrent(), kCFRunLoopCommonModes);
         
         IOReturn status = IOHIDManagerOpen(_hidManager, kIOHIDOptionsTypeNone);
         if (status != kIOReturnSuccess) {
@@ -71,13 +91,9 @@ NSString * const PTKDeviceNotificationDeviceKey = @"PTKDeviceNotificationDeviceK
             return nil;
         }
         
-        // Get all current devices
-        NSSet *devices = (__bridge_transfer NSSet*)IOHIDManagerCopyDevices(_hidManager);
-        [devices enumerateObjectsUsingBlock:^(id device, BOOL __unused *stop) {
-            PTKDevice *newDevice = [[PTKDevice alloc] initWithIOHIDDevice:(__bridge IOHIDDeviceRef)device error:NULL];
-            if (device)
-                [_devices addObject:newDevice];
-        }];
+        _sema = dispatch_semaphore_create(0);
+        [NSThread detachNewThreadSelector:@selector(hidThreadMain:) toTarget:self.class withObject:[NSValue valueWithNonretainedObject:self]];
+        dispatch_semaphore_wait(_sema, DISPATCH_TIME_FOREVER);
     }
     return self;
 }
@@ -118,7 +134,9 @@ static void hid_device_matched(void *context, IOReturn result, void *sender, IOH
         [self->_devices addObject:newDevice];
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:PTKDeviceConnectedNotification object:self userInfo:@{PTKDeviceNotificationDeviceKey: newDevice}];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:PTKDeviceConnectedNotification object:self userInfo:@{PTKDeviceNotificationDeviceKey: newDevice}];
+    });
 }
 
 //|++++++++++++++++++++++++++++++++++++|//
@@ -138,7 +156,9 @@ static void hid_device_removed(void *context, IOReturn result, void *sender, IOH
     }
     
     if (outgoingDevice)
-        [[NSNotificationCenter defaultCenter] postNotificationName:PTKDeviceDisconnectedNotification object:self userInfo:@{PTKDeviceNotificationDeviceKey: outgoingDevice}];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:PTKDeviceDisconnectedNotification object:self userInfo:@{PTKDeviceNotificationDeviceKey: outgoingDevice}];
+        });
 }
 
 @end

@@ -112,6 +112,22 @@ HIDResponse nullCallback = ^(struct PlasmaTrimHIDReport const * __unused report,
     if (_device) CFRelease(_device);
 }
 
+//|++++++++++++++++++++++++++++++++++++|//
+- (NSUInteger)hash
+{
+    return (NSUInteger)_device;
+}
+
+//|++++++++++++++++++++++++++++++++++++|//
+- (BOOL)isEqual:(PTKDevice*)other
+{
+    if (![other isKindOfClass:PTKDevice.class])
+        return NO;
+    
+    return !!CFEqual(self->_device, other->_device);
+}
+
+
 //◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦//
 #pragma mark - I/O Kit Helpers
 //◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦//
@@ -173,9 +189,12 @@ static void hid_report_callback(void *context, IOReturn result, void *sender, IO
     PTKDevice *self = (__bridge PTKDevice*)context;
     NSCAssert(report_type == kIOHIDReportTypeInput, @"Did not receive an input report.");
     
-    HIDResponse callback = [self->_replyQueue firstObject];
-    NSCAssert(callback != nil, @"Got a report without a pending callback.");
-    [self->_replyQueue removeObjectAtIndex:0];
+    __block HIDResponse callback;
+    dispatch_sync(self->_queue, ^{
+        callback = [self->_replyQueue firstObject];
+        NSCAssert(callback != nil, @"Got a report without a pending callback.");
+        [self->_replyQueue removeObjectAtIndex:0];
+    });
     
     // If the originator does not care about receiving the response, don't
     // send it.
@@ -296,7 +315,7 @@ static void hid_report_callback(void *context, IOReturn result, void *sender, IO
     
     dispatch_async(_queue, ^{
         struct PlasmaTrimHIDReport command = { .command=0x8, .data={0x0} };
-        [name getBytes:command.data maxLength:26 usedLength:NULL encoding:NSASCIIStringEncoding options:NSUTF8StringEncoding range:NSMakeRange(0, name.length) remainingRange:NULL];
+        [name getBytes:command.data maxLength:26 usedLength:NULL encoding:NSASCIIStringEncoding options:NSStringEncodingConversionAllowLossy range:NSMakeRange(0, name.length) remainingRange:NULL];
         
         if (completion == NULL)
             [self _sendCommand:&command responseHandler:nullCallback];
@@ -322,7 +341,7 @@ static void hid_report_callback(void *context, IOReturn result, void *sender, IO
             if (!response || response->command != 0x9)
                 error = [NSError errorWithDomain:PTKErrorDomain code:0x9 userInfo:@{NSLocalizedDescriptionKey : @"Received an invalid response when reading device name."}];
             else
-                name = [[NSString alloc] initWithBytes:command.data length:26 encoding:NSUTF8StringEncoding];
+                name = [[NSString alloc] initWithBytes:response->data length:strnlen((char*)response->data, 26) encoding:NSASCIIStringEncoding];
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{ completion(name, error); });
         }];
     });
