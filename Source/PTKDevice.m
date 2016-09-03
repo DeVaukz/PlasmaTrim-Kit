@@ -222,19 +222,21 @@ static void hid_report_callback(void *context, IOReturn result, void *sender, IO
 {
     __block BOOL success = NO;
     dispatch_sync(_queue, ^{
-        if (_flags.isConnectionOpen)
+        if (self->_flags.isConnectionOpen) {
+            success = YES;
             return;
+        }
         
-        IOReturn ret = IOHIDDeviceOpen(_device, kIOHIDOptionsTypeNone);
+        IOReturn ret = IOHIDDeviceOpen(self->_device, kIOHIDOptionsTypeNone);
         if (ret != kIOReturnSuccess) {
             if (error) *error = [NSError ioKitErrorWithCode:ret description:@"Failed to open device."];
             return;
         }
         
-        IOHIDDeviceScheduleWithRunLoop(_device, _runLoop, kCFRunLoopDefaultMode);
-        IOHIDDeviceRegisterInputReportCallback(_device, _inboundReportBuffer, sizeof(_inboundReportBuffer), &hid_report_callback, (__bridge void*)self);
+        IOHIDDeviceScheduleWithRunLoop(self->_device, self->_runLoop, kCFRunLoopDefaultMode);
+        IOHIDDeviceRegisterInputReportCallback(self->_device, self->_inboundReportBuffer, sizeof(self->_inboundReportBuffer), &hid_report_callback, (__bridge void*)self);
         
-        _flags.isConnectionOpen = YES;
+        self->_flags.isConnectionOpen = YES;
         success = YES;
     });
     return success;
@@ -245,16 +247,18 @@ static void hid_report_callback(void *context, IOReturn result, void *sender, IO
 {
     __block BOOL success = NO;
     dispatch_sync(_queue, ^{
-        if (!_flags.isConnectionOpen)
+        if (!self->_flags.isConnectionOpen)  {
+            success = YES;
             return;
+        }
         
         // Pretend the connection always closed successfully.
-        _flags.isConnectionOpen = NO;
+        self->_flags.isConnectionOpen = NO;
         
-        IOHIDDeviceRegisterInputReportCallback(_device, _inboundReportBuffer, sizeof(_inboundReportBuffer), NULL, (__bridge void*)self);
-        IOHIDDeviceUnscheduleFromRunLoop(_device, _runLoop, kCFRunLoopDefaultMode);
+        IOHIDDeviceRegisterInputReportCallback(self->_device, self->_inboundReportBuffer, sizeof(self->_inboundReportBuffer), NULL, (__bridge void*)self);
+        IOHIDDeviceUnscheduleFromRunLoop(self->_device, self->_runLoop, kCFRunLoopDefaultMode);
         
-        IOReturn ret = IOHIDDeviceClose(_device, kIOHIDOptionsTypeNone);
+        IOReturn ret = IOHIDDeviceClose(self->_device, kIOHIDOptionsTypeNone);
         if (ret != kIOReturnSuccess) {
             if (error) *error = [NSError ioKitErrorWithCode:ret description:@"Failed to close device cleanly."];
             return;
