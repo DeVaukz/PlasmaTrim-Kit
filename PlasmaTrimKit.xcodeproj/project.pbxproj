@@ -421,7 +421,7 @@
 		D00AE11819C4D1BC00A8F590 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = DeVaukz;
 				TargetAttributes = {
 					D00AE12019C4D1BC00A8F590 = {
@@ -625,6 +625,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D00AE15C19C4EF8700A8F590 /* Debug.xcconfig */;
 			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				SDKROOT = macosx;
 			};
@@ -634,6 +635,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D00AE15E19C4EF8700A8F590 /* Release.xcconfig */;
 			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				SDKROOT = macosx;
 			};

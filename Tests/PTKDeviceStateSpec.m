@@ -39,19 +39,19 @@ describe(@"The brightness value", ^{
     });
     
     it(@"should accept a brightness of 0", ^{
-        uint8_t brightness = 0;
+        int8_t brightness = 0;
         state.brightness = brightness;
         expect([state valueForKey:@"brightness"]).to.equal(@(brightness));
     });
     
     it(@"should accept a brightness of 100", ^{
-        uint8_t brightness = 100;
+        int8_t brightness = 100;
         state.brightness = brightness;
         expect([state valueForKey:@"brightness"]).to.equal(@(brightness));
     });
     
     it(@"should accept a brightness between [0, 100]", ^{
-        uint8_t brightness = (arc4random() % 98) + 1;
+        int8_t brightness = (arc4random() % 98) + 1;
         state.brightness = brightness;
         expect([state valueForKey:@"brightness"]).to.equal(@(brightness));
     });
@@ -76,7 +76,8 @@ describe(@"The RGB components of each lamp", ^{
     it(@"should throw an exception when getting the component values for and index above 7", ^{
         NSNumber *threwException = @(NO);
         @try {
-            [state getRed:NULL green:NULL blue:NULL forLampsInRange:NSMakeRange(0, 9)];
+            uint8_t r,g,b;
+            [state getRed:&r green:&g blue:&b forLampsInRange:NSMakeRange(0, 9)];
         }
         @catch(id exception) {
             threwException = @(YES);
