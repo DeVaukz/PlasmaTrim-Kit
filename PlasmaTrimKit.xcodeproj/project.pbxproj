@@ -421,7 +421,7 @@
 		D00AE11819C4D1BC00A8F590 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = DeVaukz;
 				TargetAttributes = {
 					D00AE12019C4D1BC00A8F590 = {
@@ -627,6 +627,7 @@
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 1;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "net.devaukz.$(PRODUCT_NAME:rfc1034identifier)";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -637,6 +638,7 @@
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 1;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "net.devaukz.$(PRODUCT_NAME:rfc1034identifier)";
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -650,7 +652,6 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "Resources/PlasmaTrimKit-Info.plist";
 				MODULEMAP_FILE = "Resources/PlasmaTrimKit-module.map";
-				PRODUCT_BUNDLE_IDENTIFIER = "net.devaukz.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -664,7 +665,6 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "Resources/PlasmaTrimKit-Info.plist";
 				MODULEMAP_FILE = "Resources/PlasmaTrimKit-module.map";
-				PRODUCT_BUNDLE_IDENTIFIER = "net.devaukz.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
