@@ -218,7 +218,7 @@ static void hid_report_callback(void *context, IOReturn result, void *sender, IO
 { return _flags.isConnectionOpen; }
 
 //|++++++++++++++++++++++++++++++++++++|//
-- (BOOL)openWithError:(NSError**)error
+- (BOOL)openWithError:(NSError * __autoreleasing *)error
 {
     __block BOOL success = NO;
     dispatch_sync(_queue, ^{
@@ -243,7 +243,7 @@ static void hid_report_callback(void *context, IOReturn result, void *sender, IO
 }
 
 //|++++++++++++++++++++++++++++++++++++|//
-- (BOOL)closeWithError:(NSError**)error
+- (BOOL)closeWithError:(NSError * __autoreleasing *)error
 {
     __block BOOL success = NO;
     dispatch_sync(_queue, ^{
