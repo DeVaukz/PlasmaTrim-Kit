@@ -421,7 +421,7 @@
 		D00AE11819C4D1BC00A8F590 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = DeVaukz;
 				TargetAttributes = {
 					D00AE12019C4D1BC00A8F590 = {
