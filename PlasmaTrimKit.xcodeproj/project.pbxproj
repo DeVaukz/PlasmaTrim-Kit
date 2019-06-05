@@ -161,11 +161,11 @@
 		D00AE16119C4F0A900A8F590 /* Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Application.xcconfig; sourceTree = "<group>"; };
 		D00AE16219C4F0A900A8F590 /* Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Framework.xcconfig; sourceTree = "<group>"; };
 		D00AE16319C4F0A900A8F590 /* StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = StaticLibrary.xcconfig; sourceTree = "<group>"; };
-		D00AE16519C4F0D600A8F590 /* Mac-Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-Application.xcconfig"; sourceTree = "<group>"; };
-		D00AE16619C4F0D600A8F590 /* Mac-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-Base.xcconfig"; sourceTree = "<group>"; };
-		D00AE16719C4F0D600A8F590 /* Mac-DynamicLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-DynamicLibrary.xcconfig"; sourceTree = "<group>"; };
-		D00AE16819C4F0D600A8F590 /* Mac-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-Framework.xcconfig"; sourceTree = "<group>"; };
-		D00AE16919C4F0D600A8F590 /* Mac-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
+		D00AE16519C4F0D600A8F590 /* macOS-Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-Application.xcconfig"; sourceTree = "<group>"; };
+		D00AE16619C4F0D600A8F590 /* macOS-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-Base.xcconfig"; sourceTree = "<group>"; };
+		D00AE16719C4F0D600A8F590 /* macOS-DynamicLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-DynamicLibrary.xcconfig"; sourceTree = "<group>"; };
+		D00AE16819C4F0D600A8F590 /* macOS-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-Framework.xcconfig"; sourceTree = "<group>"; };
+		D00AE16919C4F0D600A8F590 /* macOS-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
 		D00AE16A19C4F5EE00A8F590 /* Specta.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Specta.xcodeproj; path = specta/Specta/Specta.xcodeproj; sourceTree = "<group>"; };
 		D00AE17919C4F60400A8F590 /* Expecta.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Expecta.xcodeproj; path = expecta/Expecta.xcodeproj; sourceTree = "<group>"; };
 		D00AE19419C4FA0800A8F590 /* PTKDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTKDevice.h; sourceTree = "<group>"; };
@@ -179,6 +179,7 @@
 		D00AE1AA19C550EE00A8F590 /* NSError+PKT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+PKT.h"; sourceTree = "<group>"; };
 		D00AE1AB19C550EE00A8F590 /* NSError+PKT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+PKT.m"; sourceTree = "<group>"; };
 		D00AE1AF19C55FA800A8F590 /* PTKDeviceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTKDeviceSpec.m; sourceTree = "<group>"; };
+		D04B914422A77A58008C05D5 /* macOS-XCTest.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-XCTest.xcconfig"; sourceTree = "<group>"; };
 		D076EB5919C7E0A90043F317 /* PTKDeviceManagerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTKDeviceManagerSpec.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -282,7 +283,7 @@
 			isa = PBXGroup;
 			children = (
 				D00AE15919C4EF4800A8F590 /* Base */,
-				D00AE16419C4F0C500A8F590 /* OSX */,
+				D00AE16419C4F0C500A8F590 /* macOS */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -318,17 +319,17 @@
 			path = Targets;
 			sourceTree = "<group>";
 		};
-		D00AE16419C4F0C500A8F590 /* OSX */ = {
+		D00AE16419C4F0C500A8F590 /* macOS */ = {
 			isa = PBXGroup;
 			children = (
-				D00AE16519C4F0D600A8F590 /* Mac-Application.xcconfig */,
-				D00AE16619C4F0D600A8F590 /* Mac-Base.xcconfig */,
-				D00AE16719C4F0D600A8F590 /* Mac-DynamicLibrary.xcconfig */,
-				D00AE16819C4F0D600A8F590 /* Mac-Framework.xcconfig */,
-				D00AE16919C4F0D600A8F590 /* Mac-StaticLibrary.xcconfig */,
+				D00AE16519C4F0D600A8F590 /* macOS-Application.xcconfig */,
+				D00AE16619C4F0D600A8F590 /* macOS-Base.xcconfig */,
+				D00AE16719C4F0D600A8F590 /* macOS-DynamicLibrary.xcconfig */,
+				D00AE16819C4F0D600A8F590 /* macOS-Framework.xcconfig */,
+				D00AE16919C4F0D600A8F590 /* macOS-StaticLibrary.xcconfig */,
+				D04B914422A77A58008C05D5 /* macOS-XCTest.xcconfig */,
 			);
-			name = OSX;
-			path = "Mac OS X";
+			path = macOS;
 			sourceTree = "<group>";
 		};
 		D00AE16B19C4F5EE00A8F590 /* Products */ = {
@@ -647,7 +648,7 @@
 		};
 		D00AE13519C4D1BC00A8F590 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D00AE16819C4F0D600A8F590 /* Mac-Framework.xcconfig */;
+			baseConfigurationReference = D00AE16819C4F0D600A8F590 /* macOS-Framework.xcconfig */;
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -660,7 +661,7 @@
 		};
 		D00AE13619C4D1BC00A8F590 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D00AE16819C4F0D600A8F590 /* Mac-Framework.xcconfig */;
+			baseConfigurationReference = D00AE16819C4F0D600A8F590 /* macOS-Framework.xcconfig */;
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -673,7 +674,7 @@
 		};
 		D00AE13819C4D1BC00A8F590 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D00AE16519C4F0D600A8F590 /* Mac-Application.xcconfig */;
+			baseConfigurationReference = D04B914422A77A58008C05D5 /* macOS-XCTest.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "Resources/PlasmaTrimKit-Tests-Info.plist";
 				OTHER_LDFLAGS = "-all_load";
@@ -683,7 +684,7 @@
 		};
 		D00AE13919C4D1BC00A8F590 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D00AE16519C4F0D600A8F590 /* Mac-Application.xcconfig */;
+			baseConfigurationReference = D04B914422A77A58008C05D5 /* macOS-XCTest.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "Resources/PlasmaTrimKit-Tests-Info.plist";
 				OTHER_LDFLAGS = "-all_load";
