@@ -35,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 //----------------------------------------------------------------------------//
 //! Manages the communication with a single PlasmaTrim device.
 //
+OBJC_EXPORT
 @interface PTKDevice : NSObject
 
 - (nullable instancetype)initWithIOHIDDevice:(IOHIDDeviceRef)device error:(NSError * __autoreleasing * _Nullable)error;

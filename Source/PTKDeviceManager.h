@@ -37,15 +37,16 @@ NS_ASSUME_NONNULL_BEGIN
 //
 
 //! A device was plugged in.
-extern NSNotificationName const PTKDeviceConnectedNotification;
+FOUNDATION_EXPORT NSNotificationName const PTKDeviceConnectedNotification;
 //! A device was removed.
-extern NSNotificationName const PTKDeviceDisconnectedNotification;
+FOUNDATION_EXPORT NSNotificationName const PTKDeviceDisconnectedNotification;
 //! The device that was either connected or disconnected.
-extern NSString * const PTKDeviceNotificationDeviceKey;
+FOUNDATION_EXPORT NSString * const PTKDeviceNotificationDeviceKey;
 
 
 
 //----------------------------------------------------------------------------//
+OBJC_EXPORT
 @interface PTKDeviceManager : NSObject
 
 //! Initializes the receiver.

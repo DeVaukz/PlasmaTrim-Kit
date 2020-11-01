@@ -32,6 +32,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 //----------------------------------------------------------------------------//
+OBJC_EXPORT
 @interface PTKDeviceState : NSObject <NSCopying>
 
 //! Creates and returns a \c PTKDeviceState object configured for the specified

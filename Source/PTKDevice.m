@@ -33,8 +33,8 @@
 // All PlasmaTrim devices have 8 lamps.
 #define LAMP_COUNT  8
 
-const uint32_t kPTKPlasmaTrimVendorID = 0x26f3;
-const uint32_t kPTKPlasmaTrimProductID = 0x1000;
+OBJC_VISIBLE const uint32_t kPTKPlasmaTrimVendorID = 0x26f3;
+OBJC_VISIBLE const uint32_t kPTKPlasmaTrimProductID = 0x1000;
 
 struct __attribute((packed)) PlasmaTrimHIDReport {
     uint8_t command;

@@ -23,6 +23,7 @@
 		D00FDB7F1C0902650026DD27 /* Expecta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FDB711C0902600026DD27 /* Expecta.framework */; };
 		D076EB5A19C7E0A90043F317 /* PTKDeviceManagerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D076EB5919C7E0A90043F317 /* PTKDeviceManagerSpec.m */; };
 		D0FA79F9254E908C004C3FC4 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0FA79F8254E908C004C3FC4 /* IOKit.framework */; };
+		D0FA7A6D254F3BDE004C3FC4 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0FA79F8254E908C004C3FC4 /* IOKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,13 +97,6 @@
 			remoteGlobalIDString = E9536CD71968D30B003D1FBA;
 			remoteInfo = Specta;
 		};
-		D00AE18D19C4F62A00A8F590 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D00AE17919C4F60400A8F590 /* Expecta.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = E9ACDF0B13B2DD520010F4D7;
-			remoteInfo = Expecta;
-		};
 		D00AE18F19C4F62D00A8F590 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D00AE11819C4D1BC00A8F590 /* Project object */;
@@ -144,6 +138,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = E917140919DF07D700921712;
 			remoteInfo = "libSpecta-iOS";
+		};
+		D0FA7A69254F3BB5004C3FC4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D00AE17919C4F60400A8F590 /* Expecta.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 908379781A8B972C009844DA;
+			remoteInfo = Expecta;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -201,6 +202,7 @@
 				D00FDB7F1C0902650026DD27 /* Expecta.framework in Frameworks */,
 				D00AE19219C4F64400A8F590 /* Specta.framework in Frameworks */,
 				D00AE19119C4F63D00A8F590 /* PlasmaTrimKit.framework in Frameworks */,
+				D0FA7A6D254F3BDE004C3FC4 /* IOKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,7 +422,7 @@
 			);
 			dependencies = (
 				D00AE19019C4F62D00A8F590 /* PBXTargetDependency */,
-				D00AE18E19C4F62A00A8F590 /* PBXTargetDependency */,
+				D0FA7A6A254F3BB5004C3FC4 /* PBXTargetDependency */,
 				D00AE18C19C4F62400A8F590 /* PBXTargetDependency */,
 			);
 			name = PlasmaTrimKitTests;
@@ -622,15 +624,15 @@
 			name = Specta;
 			targetProxy = D00AE18B19C4F62400A8F590 /* PBXContainerItemProxy */;
 		};
-		D00AE18E19C4F62A00A8F590 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Expecta;
-			targetProxy = D00AE18D19C4F62A00A8F590 /* PBXContainerItemProxy */;
-		};
 		D00AE19019C4F62D00A8F590 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D00AE12019C4D1BC00A8F590 /* PlasmaTrimKit */;
 			targetProxy = D00AE18F19C4F62D00A8F590 /* PBXContainerItemProxy */;
+		};
+		D0FA7A6A254F3BB5004C3FC4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Expecta;
+			targetProxy = D0FA7A69254F3BB5004C3FC4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

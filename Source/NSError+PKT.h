@@ -31,9 +31,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 //! I/O Kit Errors.
-extern NSString * const IOKitErrorDomain;
+FOUNDATION_EXPORT NSString * const IOKitErrorDomain;
 //! PlasmaTrim Errors
-extern NSString * const PTKErrorDomain;
+FOUNDATION_EXPORT NSString * const PTKErrorDomain;
 
 
 //----------------------------------------------------------------------------//
