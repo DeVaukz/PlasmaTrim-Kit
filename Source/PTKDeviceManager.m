@@ -70,7 +70,7 @@ NSString * const PTKDeviceNotificationDeviceKey = @"PTKDeviceNotificationDeviceK
 }
 
 //|++++++++++++++++++++++++++++++++++++|//
-- (instancetype)initWithError:(NSError**)error
+- (instancetype)initWithError:(NSError * __autoreleasing * _Nullable)error
 {
     self = [super init];
     if (self) {
@@ -87,7 +87,7 @@ NSString * const PTKDeviceNotificationDeviceKey = @"PTKDeviceNotificationDeviceK
         
         IOReturn status = IOHIDManagerOpen(_hidManager, kIOHIDOptionsTypeNone);
         if (status != kIOReturnSuccess) {
-            if (error) *error = [NSError ioKitErrorWithCode:status description:@"Failed to open IOHIDManager."];
+            if (error) *error = [NSError ptk_IOKitErrorWithCode:status description:@"Failed to open IOHIDManager."];
             return nil;
         }
         

@@ -149,13 +149,13 @@ NSString * const PTKErrorDomain = @"PTKErrorDomain";
 }
 
 //|++++++++++++++++++++++++++++++++++++|//
-+ (instancetype)ioKitErrorWithCode:(IOReturn)code userInfo:(NSDictionary*)userInfo
++ (instancetype)ptk_IOKitErrorWithCode:(IOReturn)code userInfo:(NSDictionary*)userInfo
 {
     return [NSError errorWithDomain:IOKitErrorDomain code:code userInfo:userInfo];
 }
 
 //|++++++++++++++++++++++++++++++++++++|//
-+ (instancetype)ioKitErrorWithCode:(IOReturn)code description:(NSString*)description
++ (instancetype)ptk_IOKitErrorWithCode:(IOReturn)code description:(NSString*)description
 {
     return [NSError errorWithDomain:IOKitErrorDomain code:code userInfo:@{NSLocalizedDescriptionKey : description, NSLocalizedFailureReasonErrorKey: [self stringForIOKitError:code]}];
 }

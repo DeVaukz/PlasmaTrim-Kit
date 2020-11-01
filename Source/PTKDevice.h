@@ -37,7 +37,9 @@ NS_ASSUME_NONNULL_BEGIN
 //
 @interface PTKDevice : NSObject
 
-- (nullable instancetype)initWithIOHIDDevice:(IOHIDDeviceRef)device error:(NSError**)error;
+- (nullable instancetype)initWithIOHIDDevice:(IOHIDDeviceRef)device error:(NSError * __autoreleasing * _Nullable)error;
+
+- (instancetype)init NS_UNAVAILABLE;
 
 //◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦//
 #pragma mark -  Establishing A Connection To The Device
@@ -102,6 +104,7 @@ NS_ASSUME_NONNULL_BEGIN
 //!
 //! @param  brightness
 //!         The new brightness percentage.  Must be between [0, 100].
+//!
 //! @warning
 //! This method writes to the device's non-volatile memory.  Calling it
 //! repeatedly may shorten the lifespan of the device.

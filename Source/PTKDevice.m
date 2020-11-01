@@ -48,7 +48,7 @@ HIDResponse nullCallback = ^(struct PlasmaTrimHIDReport const * __unused report,
 
 //----------------------------------------------------------------------------//
 @implementation PTKDevice {
-    //! The run lopp this device was initialied on.  Used to schedule the
+    //! The run lopp this device was initialized on.  Used to schedule the
     //! I/O HID report callback once the device is opened.
     CFRunLoopRef _runLoop;
     dispatch_queue_t _queue;
@@ -63,7 +63,7 @@ HIDResponse nullCallback = ^(struct PlasmaTrimHIDReport const * __unused report,
 }
 
 //|++++++++++++++++++++++++++++++++++++|//
-- (instancetype)initWithIOHIDDevice:(IOHIDDeviceRef)device error:(NSError**)error
+- (instancetype)initWithIOHIDDevice:(IOHIDDeviceRef)device error:(NSError * __autoreleasing * _Nullable)error
 {
     if (!device) return nil;
     
@@ -81,7 +81,7 @@ HIDResponse nullCallback = ^(struct PlasmaTrimHIDReport const * __unused report,
         NSNumber *vendorID = [self _getNumberProperty:CFSTR(kIOHIDVendorIDKey) ofDevice:device error:error];
         if (!vendorID) return nil;
         if ([vendorID unsignedIntegerValue] != kPTKPlasmaTrimVendorID) {
-            if (error) *error = [NSError ioKitErrorWithCode:0 description:[NSString stringWithFormat:@"IOHIDDeviceGetProperty(kIOHIDVendorIDKey) returned %@; expected %i.", vendorID, kPTKPlasmaTrimVendorID]];
+            if (error) *error = [NSError ptk_IOKitErrorWithCode:0 description:[NSString stringWithFormat:@"IOHIDDeviceGetProperty(kIOHIDVendorIDKey) returned %@; expected %i.", vendorID, kPTKPlasmaTrimVendorID]];
             return nil;
         }
         
@@ -89,7 +89,7 @@ HIDResponse nullCallback = ^(struct PlasmaTrimHIDReport const * __unused report,
         NSNumber *productID = [self _getNumberProperty:CFSTR(kIOHIDProductIDKey) ofDevice:device error:error];
         if (!productID) return nil;
         if ([productID unsignedIntegerValue] != kPTKPlasmaTrimProductID) {
-            if (error) *error = [NSError ioKitErrorWithCode:0 description:[NSString stringWithFormat:@"IOHIDDeviceGetProperty(kIOHIDProductIDKey) returned %@; expected %i.", productID, kPTKPlasmaTrimProductID]];
+            if (error) *error = [NSError ptk_IOKitErrorWithCode:0 description:[NSString stringWithFormat:@"IOHIDDeviceGetProperty(kIOHIDProductIDKey) returned %@; expected %i.", productID, kPTKPlasmaTrimProductID]];
             return nil;
         }
         
@@ -97,11 +97,18 @@ HIDResponse nullCallback = ^(struct PlasmaTrimHIDReport const * __unused report,
         NSNumber *deviceInboundReportSize = [self _getNumberProperty:CFSTR(kIOHIDMaxInputReportSizeKey) ofDevice:device error:error];
         if (!deviceInboundReportSize) return nil;
         if ([deviceInboundReportSize unsignedIntegerValue] != REPORT_SIZE) {
-            if (error) *error = [NSError ioKitErrorWithCode:0 description:[NSString stringWithFormat:@"IOHIDDeviceGetProperty(kIOHIDMaxInputReportSizeKey) returned %@; expected %d.", deviceInboundReportSize, REPORT_SIZE]];
+            if (error) *error = [NSError ptk_IOKitErrorWithCode:0 description:[NSString stringWithFormat:@"IOHIDDeviceGetProperty(kIOHIDMaxInputReportSizeKey) returned %@; expected %d.", deviceInboundReportSize, REPORT_SIZE]];
             return nil;
         }
     }
     return self;
+}
+
+//|++++++++++++++++++++++++++++++++++++|//
+- (instancetype)init
+{
+    [self doesNotRecognizeSelector:_cmd];
+    return nil;
 }
 
 //|++++++++++++++++++++++++++++++++++++|//
@@ -133,12 +140,12 @@ HIDResponse nullCallback = ^(struct PlasmaTrimHIDReport const * __unused report,
 //◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦//
 
 //|++++++++++++++++++++++++++++++++++++|//
-- (NSNumber*)_getNumberProperty:(CFStringRef)key ofDevice:(IOHIDDeviceRef)device error:(NSError**)error
+- (NSNumber*)_getNumberProperty:(CFStringRef)key ofDevice:(IOHIDDeviceRef)device error:(NSError * __autoreleasing * _Nullable)error
 {
     CFNumberRef retValue = IOHIDDeviceGetProperty(device, key);
     
     if (CFGetTypeID(retValue) != CFNumberGetTypeID()) {
-        if (error) *error = [NSError ioKitErrorWithCode:0 description:[NSString stringWithFormat:@"IOHIDDeviceGetProperty(%@) returned an invalid value.", key]];
+        if (error) *error = [NSError ptk_IOKitErrorWithCode:0 description:[NSString stringWithFormat:@"IOHIDDeviceGetProperty(%@) returned an invalid value.", key]];
         return nil;
     }
     
@@ -146,12 +153,12 @@ HIDResponse nullCallback = ^(struct PlasmaTrimHIDReport const * __unused report,
 }
 
 //|++++++++++++++++++++++++++++++++++++|//
-- (NSString*)_getStringProperty:(CFStringRef)key ofDevice:(IOHIDDeviceRef)device error:(NSError**)error
+- (NSString*)_getStringProperty:(CFStringRef)key ofDevice:(IOHIDDeviceRef)device error:(NSError * __autoreleasing * _Nullable)error
 {
     CFStringRef retValue = IOHIDDeviceGetProperty(device, key);
     
     if (CFGetTypeID(retValue) != CFStringGetTypeID()) {
-        if (error) *error = [NSError ioKitErrorWithCode:0 description:[NSString stringWithFormat:@"IOHIDDeviceGetProperty(%@) returned an invalid value.", key]];
+        if (error) *error = [NSError ptk_IOKitErrorWithCode:0 description:[NSString stringWithFormat:@"IOHIDDeviceGetProperty(%@) returned an invalid value.", key]];
         return nil;
     }
     
@@ -164,7 +171,7 @@ HIDResponse nullCallback = ^(struct PlasmaTrimHIDReport const * __unused report,
 {
     IOReturn res = IOHIDDeviceSetReport(_device, kIOHIDReportTypeOutput, command->command, (uint8_t*)command, REPORT_SIZE);
     if (res != kIOReturnSuccess) {
-        NSError *error = [NSError ioKitErrorWithCode:res description:[NSString stringWithFormat:@"Failed to send message."]];
+        NSError *error = [NSError ptk_IOKitErrorWithCode:res description:[NSString stringWithFormat:@"Failed to send message."]];
         responseHandler(NULL, error);
         return;
     }
@@ -208,7 +215,7 @@ static void hid_report_callback(void *context, IOReturn result, void *sender, IO
             
             callback(&response, nil);
         } else {
-            callback(NULL, [NSError ioKitErrorWithCode:result description:@""]);
+            callback(NULL, [NSError ptk_IOKitErrorWithCode:result description:@""]);
         }
     }
 }
@@ -229,7 +236,7 @@ static void hid_report_callback(void *context, IOReturn result, void *sender, IO
         
         IOReturn ret = IOHIDDeviceOpen(self->_device, kIOHIDOptionsTypeNone);
         if (ret != kIOReturnSuccess) {
-            if (error) *error = [NSError ioKitErrorWithCode:ret description:@"Failed to open device."];
+            if (error) *error = [NSError ptk_IOKitErrorWithCode:ret description:@"Failed to open device."];
             return;
         }
         
@@ -260,7 +267,7 @@ static void hid_report_callback(void *context, IOReturn result, void *sender, IO
         
         IOReturn ret = IOHIDDeviceClose(self->_device, kIOHIDOptionsTypeNone);
         if (ret != kIOReturnSuccess) {
-            if (error) *error = [NSError ioKitErrorWithCode:ret description:@"Failed to close device cleanly."];
+            if (error) *error = [NSError ptk_IOKitErrorWithCode:ret description:@"Failed to close device cleanly."];
             return;
         }
         

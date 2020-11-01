@@ -69,7 +69,7 @@ You will need to have a USB PlasmaTrim device connected to your computer when ru
 
 ## System Requirements
 
-PlasmaTrimKit has been tested on OS X 10.9.  However, it should be possible to deploy back to OS X 10.8.
+PlasmaTrimKit has been tested on OS X 10.9 and above.  However, it should be possible to deploy back to OS X 10.8.
 
 ## License
 

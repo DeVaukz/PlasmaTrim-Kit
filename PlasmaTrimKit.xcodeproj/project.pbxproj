@@ -22,6 +22,7 @@
 		D00AE1B219C55FB000A8F590 /* PTKDeviceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D00AE1AF19C55FA800A8F590 /* PTKDeviceSpec.m */; };
 		D00FDB7F1C0902650026DD27 /* Expecta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FDB711C0902600026DD27 /* Expecta.framework */; };
 		D076EB5A19C7E0A90043F317 /* PTKDeviceManagerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D076EB5919C7E0A90043F317 /* PTKDeviceManagerSpec.m */; };
+		D0FA79F9254E908C004C3FC4 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0FA79F8254E908C004C3FC4 /* IOKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -181,6 +182,7 @@
 		D00AE1AF19C55FA800A8F590 /* PTKDeviceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTKDeviceSpec.m; sourceTree = "<group>"; };
 		D04B914422A77A58008C05D5 /* macOS-XCTest.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "macOS-XCTest.xcconfig"; sourceTree = "<group>"; };
 		D076EB5919C7E0A90043F317 /* PTKDeviceManagerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTKDeviceManagerSpec.m; sourceTree = "<group>"; };
+		D0FA79F8254E908C004C3FC4 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +190,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0FA79F9254E908C004C3FC4 /* IOKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,6 +216,7 @@
 				D00AE15019C4DD2D00A8F590 /* Resources */,
 				D00AE15819C4EF1800A8F590 /* Configuration */,
 				D00AE15619C4E93700A8F590 /* External */,
+				D0FA79F7254E908C004C3FC4 /* Frameworks */,
 				D00AE12219C4D1BC00A8F590 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -360,6 +364,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		D0FA79F7254E908C004C3FC4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D0FA79F8254E908C004C3FC4 /* IOKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -422,7 +434,7 @@
 		D00AE11819C4D1BC00A8F590 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1210;
 				ORGANIZATIONNAME = DeVaukz;
 				TargetAttributes = {
 					D00AE12019C4D1BC00A8F590 = {
@@ -435,10 +447,11 @@
 			};
 			buildConfigurationList = D00AE11B19C4D1BC00A8F590 /* Build configuration list for PBXProject "PlasmaTrimKit" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = D00AE11719C4D1BC00A8F590;
 			productRefGroup = D00AE12219C4D1BC00A8F590 /* Products */;

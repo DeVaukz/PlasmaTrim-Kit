@@ -41,8 +41,8 @@ extern NSString * const PTKErrorDomain;
 
 + (NSString*)stringForIOKitError:(IOReturn)code;
 
-+ (instancetype)ioKitErrorWithCode:(IOReturn)code userInfo:(NSDictionary*)userInfo;
-+ (instancetype)ioKitErrorWithCode:(IOReturn)code description:(NSString*)description;
++ (instancetype)ptk_IOKitErrorWithCode:(IOReturn)code userInfo:(NSDictionary*)userInfo;
++ (instancetype)ptk_IOKitErrorWithCode:(IOReturn)code description:(NSString*)description;
 
 @end
 
